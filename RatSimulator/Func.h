@@ -46,18 +46,6 @@ void ShowConsoleCursor(bool showFlag) // false - Убийца курсора
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-//void TextColor()
-//{
-//	for (size_t i = 0; i < 16; i++)
-//	{
-//		SetColor(i, Black);
-//		cout << i << "   ___TEXT__TEXT??%;№:№**|";
-//		SetColor(Black, i);
-//		cout << "        " << endl;;
-//	}
-//
-//}
-
 void printFrame(int height = 25, int width = 80, int posX = 10, int posY = 5) //Рисовка рамки 
 {
 	for (int y = 0; y < height; y++)
