@@ -11,17 +11,16 @@
 //#include<iomanip> //setw
 //#include<typeinfo>
 using namespace std;
-
+  
 int main()
  {
 	setlocale(0, "");
 	SetConsoleTitleA("RatSimulator"); 
 	system("mode con cols=100 lines=30");
+	ShowConsoleCursor(false);
 
 
 	RatSimulator start;
-	ShowConsoleCursor(false);
 	start.menu();
 	SetColor(Black, Black);
-
 }
