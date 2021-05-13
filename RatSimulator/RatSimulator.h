@@ -208,11 +208,7 @@ struct RatSimulator
 				miniGames(acc);
 				break;
 			case 2:
-				system("cls");
-				FeedRat();
-
-				gotoxy(30, 27);
-				system("pause");
+				FeedRat(account, acc);
 				break;
 			case 3:
 				system("cls");
