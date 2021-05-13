@@ -18,16 +18,10 @@ void SetColor(int text, int background)
 	SetConsoleTextAttribute(hStdOut, (WORD)((background << 4) | text));
 }
 
-void gotoxy(int x, int y)
+void gotoxy(int x, int y, int sizeLen = 0, int sizeHeight = 100) //При наличии размера строки выполняется форматирование по центру
 {
-	COORD coord;
-	coord.X = x;
-	coord.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
-void gotoxy(int x, int y, int sizeLen, int sizeHeight = 100)
-{
-	x = (x + sizeHeight - sizeLen) / 2;
+	if (sizeLen)
+		x = (x + sizeHeight - sizeLen) / 2;
 
 	COORD coord;
 	coord.X = x;
@@ -46,7 +40,7 @@ void ShowConsoleCursor(bool showFlag) // false - Убийца курсора
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-void printFrame(int height = 25, int width = 80, int posX = 10, int posY = 5) //Рисовка рамки 
+void printFrame(int height = 25, int width = 80, int posX = 10, int posY = 5) //Рисовка рамки по заданным размерам и позиции
 {
 	for (int y = 0; y < height; y++)
 	{
@@ -88,7 +82,7 @@ void addElem(T*& a, int& n, T elem, int pos = -1) {//добавление эле
 	{
 		temp[i + 1] = a[i];
 	}
-	//delete[]a;
+	/*delete[]a;*/  //Возникают баги в Быках и корова (Предыдущее число) 
 	n++;
 	a = temp;
 
@@ -167,6 +161,7 @@ void printTypes()
 	gotoxy(30, 20);
 	system("pause");
 }
+
 void printRules()
 {
 	system("cls");
