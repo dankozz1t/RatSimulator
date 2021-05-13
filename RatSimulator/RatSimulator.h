@@ -1,44 +1,12 @@
 ﻿#pragma once
 #include<iostream>
 #include "Func.h"
+#include"Struct.h"
+#include"Graphic.h"
 #include<fstream>
 #include"Menu.h"
 #include"Timer.h"
 #include"CowAndBull.h"
-
-struct Date
-{
-	int d, m, y;
-
-	void print()
-	{
-		if (d < 10)
-			cout << 0;
-		cout << d << ".";
-		if (m < 10)
-			cout << 0;
-		cout << m << "." << y;
-	}
-};
-
-struct Rat
-{
-	char name[10];
-	int mode = 1; 
-	int rating = 0;
-	int satiety = 0;
-	int gold = 0;
-	int health = 100;
-};
-
-struct Account
-{
-	Rat rat;
-	Date date;
-	int time = 0;
-	int countFeed = 0;
-};
-
 
 struct RatSimulator
 {
@@ -104,48 +72,7 @@ struct RatSimulator
 		} while (num == 5);
 		addElem(account, sizeAcc, acc);
 	}
-	
-	void printRAT(int acc, char eyes = 'O')  //Состояние Крысы. Привести к адекватности. 
-	{
-		//^^ OO XX  (Глава крысы меняются в зависимости от действий игры)
-		switch (account[acc].rat.mode)
-		{
-		case 1:
-			SetColor(White, Black);
-			break;
-		case 2:
-			SetColor(DarkGray, Black);
-			break;
-		case 3:
-			SetColor(LightRed, Black);
-			break;
-		case 4:
-			SetColor(Brown, Black);
-			break;
-		};
-		gotoxy(83, 18);
-		cout << " ___      ___  ";
-		gotoxy(83, 19);
-		cout << "/   \\    /   \\ ";
-		gotoxy(83, 20);
-		cout << "|    \\__/    | ";
-		gotoxy(83, 21);
-		cout << "|            | ";
-		gotoxy(83, 22);
-		cout << "\\__        __/ ";
-		gotoxy(83, 23);
-		cout << "  / " << eyes << "   " << eyes << " |  ";
-		gotoxy(83, 24);
-		cout << "@         |  ";
-		gotoxy(83, 25);
-		if (eyes == 'X')
-			cout << " \\___     |  ";
-		else
-			cout << " \\___/    |  ";
-		gotoxy(83, 26);
-		cout << " |        |  ";
 
-	}
 
 	int rulesBullAndCows()
 	{
@@ -175,7 +102,7 @@ struct RatSimulator
 		}
 
 		SetColor(Red, Black);
-		gotoxy(35,14);
+		gotoxy(35, 14);
 		cout << "Стоимость 1 игры состоявлеят 10 здоровья и 10 сытости";
 
 		SetColor(Cyan, Black);
@@ -212,60 +139,47 @@ struct RatSimulator
 			case 1:
 				if (rulesBullAndCows() == 1)
 				{
-					if (account[acc].rat.health >= 10 && account[acc].rat.satiety >= 10) //Блок самоубийц
+					int modeSize = 0;
+					if (bullsAndCows(modeSize)) //Бонусы за исход игры
 					{
-						int modeSize = 0;
-						if (bullsAndCows(modeSize)) //Бонусы за исход игры
+						switch (modeSize)
 						{
-							switch (modeSize)
-							{
-							case 3:
-								account[acc].rat.gold += 2;
-								account[acc].rat.rating += 10;
-								break;
-							case 4:
-								account[acc].rat.gold += 3;
-								account[acc].rat.rating += 25;
-								break;
-							case 5:
-								account[acc].rat.gold += 5;
-								account[acc].rat.rating += 30;
-								break;
-							case 6:
-								account[acc].rat.gold += 7;
-								account[acc].rat.rating += 50;
-								break;
-							default:
-								break;
-							}
-						}
-						else
-						{
-							if (modeSize == 3)
-								account[acc].rat.rating -= 10;
-							else if (modeSize == 4)
-								account[acc].rat.rating -= 25;
-							else if (modeSize == 5)
-								account[acc].rat.rating -= 30;
-							else
-								account[acc].rat.rating -= 50;
-
-							account[acc].rat.health -= 10;
-							account[acc].rat.satiety -= 10;
-							ShowConsoleCursor(false);
+						case 3:
+							account[acc].rat.gold += 2;
+							account[acc].rat.rating += 10;
+							break;
+						case 4:
+							account[acc].rat.gold += 3;
+							account[acc].rat.rating += 25;
+							break;
+						case 5:
+							account[acc].rat.gold += 5;
+							account[acc].rat.rating += 30;
+							break;
+						case 6:
+							account[acc].rat.gold += 7;
+							account[acc].rat.rating += 50;
+							break;
+						default:
+							break;
 						}
 					}
 					else
 					{
-						gotoxy(26, 15,23,100);
-						SetColor(Red, Black);
-						cout << "Самоубийц не пускаем!!" << endl;
-						SetColor(Magenta, Black);
-						gotoxy(25, 28,44,100);
-						system("pause");
+						if (modeSize == 3)
+							account[acc].rat.rating -= 10;
+						else if (modeSize == 4)
+							account[acc].rat.rating -= 25;
+						else if (modeSize == 5)
+							account[acc].rat.rating -= 30;
+						else
+							account[acc].rat.rating -= 50;
+
+						account[acc].rat.health -= 10;
+						account[acc].rat.satiety -= 10;
+						ShowConsoleCursor(false);
 					}
 				}
-
 				break;
 			case 2:
 				break;
@@ -298,7 +212,10 @@ struct RatSimulator
 			system("cls");
 			SetColor(Magenta, Black);
 			printFrame(25, 88, 6, 1);
-			printRAT(acc);
+			if (!account[acc].rat.health == 0)
+				printRAT(account, acc);
+			else
+				printRAT(account, acc, 'X');
 
 			Menu mP;
 			vector<string> mPlayer = { "     Мини-игры", "   Покормить крысу", "      Магазин", "     Сохранение", "       Выход" };
@@ -310,10 +227,31 @@ struct RatSimulator
 				miniGames(acc);
 				break;
 			case 2:
+				system("cls");
+				SetColor(Red, Black);
+				gotoxy(0, 15, 11);
+				cout << "В процессе" << endl;
+				SetColor(Green, Black);
+				gotoxy(30, 27);
+				system("pause");
 				break;
 			case 3:
+				system("cls");
+				SetColor(Red, Black);
+				gotoxy(0, 15, 11);
+				cout << "В процессе" << endl;
+				SetColor(Green, Black);
+				gotoxy(30, 27);
+				system("pause");
 				break;
 			case 4:
+				system("cls");
+				SetColor(Red, Black);
+				gotoxy(0, 15, 11);
+				cout << "В процессе" << endl;
+				SetColor(Green, Black);
+				gotoxy(30, 27);
+				system("pause");
 				break;
 			case 5:
 				account[acc].time += time.elapsed();
@@ -324,24 +262,6 @@ struct RatSimulator
 
 		} while (true);
 
-		gotoxy(30, 28);
-		system("pause");
-	}
-	void printAcc()
-	{
-		setlocale(0, "");
-		system("cls");
-		for (size_t i = 0; i < sizeAcc; i++)
-		{
-			cout << "----------Акк № " << i << endl;
-			cout << "ИМЯ  " << account[i].rat.name << endl;
-			cout << "Мод  " << account[i].rat.mode << endl;
-			cout << "рейтинг  " << account[i].rat.rating << endl;
-			cout << "сытость  " << account[i].rat.satiety << endl;
-			cout << "голда  " << account[i].rat.gold << endl;
-			cout << "здоровье  " << account[i].rat.health << endl;
-			cout << "Время  " << account[i].time << endl;
-		}
 		gotoxy(30, 28);
 		system("pause");
 	}
@@ -366,7 +286,6 @@ struct RatSimulator
 			SetColor(Green, Black);
 			printScreensaver(); //Заставка
 
-
 			Menu m;
 			vector<string> mainMenu = { "      Новая игра", "     Я уже играл", "       Рекорды", "       Правила" ,"      Об авторе" , "        Выход" };
 
@@ -385,7 +304,7 @@ struct RatSimulator
 				system("pause");
 				break;
 			case 3:
-				printAcc();
+				printAcc(account, sizeAcc);
 				break;
 			case 4:
 				printRules();
@@ -393,7 +312,7 @@ struct RatSimulator
 			case 5:
 				system("cls");
 				SetColor(Red, Black);
-				gotoxy(0, 15,24);
+				gotoxy(0, 15, 24);
 				cout << "Автор умер от говнокода" << endl;
 				SetColor(Green, Black);
 				gotoxy(30, 27);
