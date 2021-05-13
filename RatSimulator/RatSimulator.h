@@ -217,6 +217,8 @@ struct RatSimulator
 			else
 				printRAT(account, acc, 'X');
 
+			printCharacteristics(account, acc);
+
 			Menu mP;
 			vector<string> mPlayer = { "     Мини-игры", "   Покормить крысу", "      Магазин", "     Сохранение", "       Выход" };
 

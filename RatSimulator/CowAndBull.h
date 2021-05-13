@@ -25,6 +25,7 @@ void generateSecretNum(int modeSize, char secretNum[])
 
 }
 void cinNumber(int modeSize, char cinNum[], char secretNum[]) {
+	ShowConsoleCursor(true);
 	cout << "#-------------------" << endl;
 	cout << "|-Ваше число: ";
 	SetColor(Red, Black);
@@ -36,7 +37,7 @@ void cinNumber(int modeSize, char cinNum[], char secretNum[]) {
 		cout << " Введите " << modeSize << " значное число!\n";
 		cinNumber(modeSize, cinNum, secretNum);
 	}
-
+	ShowConsoleCursor(false);
 }
 
 int guessNum(int modeSize, char secretNum[], int att, char* previous[], int sizePrevious = 0) {
@@ -142,7 +143,6 @@ int bullsAndCows(int& modeSize)
 
 	system("cls");
 	SetColor(Green, Black);
-	ShowConsoleCursor(true);
 
 	char* secretNum = new char[modeSize] {NULL};
 	char* previous = new char[] {NULL};
