@@ -105,10 +105,10 @@ struct RatSimulator
 		addElem(account, sizeAcc, acc);
 	}
 	
-	void printRAT(char eyes = 'O')  //Состояние Крысы
+	void printRAT(int acc, char eyes = 'O')  //Состояние Крысы. Привести к адекватности. 
 	{
-		//^^ OO XX 
-		switch (account[sizeAcc - 1].rat.mode)
+		//^^ OO XX  (Глава крысы меняются в зависимости от действий игры)
+		switch (account[acc].rat.mode)
 		{
 		case 1:
 			SetColor(White, Black);
@@ -146,6 +146,7 @@ struct RatSimulator
 		cout << " |        |  ";
 
 	}
+
 	int rulesBullAndCows()
 	{
 		string rows[] = {
@@ -182,9 +183,6 @@ struct RatSimulator
 
 		SetColor(LightCyan, Black);
 		tableCowAndBulls(25, 16);
-
-
-
 
 		int option = 0;
 		Menu m;
@@ -245,15 +243,16 @@ struct RatSimulator
 						{
 							if (modeSize == 3)
 								account[acc].rat.rating -= 10;
-							else if (modeSize = 4)
+							else if (modeSize == 4)
 								account[acc].rat.rating -= 25;
-							else if (modeSize = 5)
+							else if (modeSize == 5)
 								account[acc].rat.rating -= 30;
 							else
 								account[acc].rat.rating -= 50;
 
 							account[acc].rat.health -= 10;
 							account[acc].rat.satiety -= 10;
+							ShowConsoleCursor(false);
 						}
 					}
 					else
@@ -299,7 +298,7 @@ struct RatSimulator
 			system("cls");
 			SetColor(Magenta, Black);
 			printFrame(25, 88, 6, 1);
-			printRAT();
+			printRAT(acc);
 
 			Menu mP;
 			vector<string> mPlayer = { "     Мини-игры", "   Покормить крысу", "      Магазин", "     Сохранение", "       Выход" };
@@ -379,7 +378,6 @@ struct RatSimulator
 				menuPlayer();
 				break;
 			case 2:
-				/*	test();*/
 				if (sizeAcc)
 					menuPlayer(AccSelection());
 				else
@@ -393,6 +391,13 @@ struct RatSimulator
 				printRules();
 				break;
 			case 5:
+				system("cls");
+				SetColor(Red, Black);
+				gotoxy(0, 15,24);
+				cout << "Автор умер от говнокода" << endl;
+				SetColor(Green, Black);
+				gotoxy(30, 27);
+				system("pause");
 				break;
 			case 6:
 				return;
