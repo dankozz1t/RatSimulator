@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 
-
 void generateSecretNum(int modeSize, char secretNum[]) 
 {
 	srand(time(0));
