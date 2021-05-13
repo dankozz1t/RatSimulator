@@ -22,7 +22,7 @@ struct Menu
 				if (i == pos)
 				{
 					SetColor(0, 15);
-					gotoxy(posX, posY - menu.size() / 2+ i);
+					gotoxy(posX, posY - menu.size() / 2 + i);
 					cout << "                      ";
 					gotoxy(posX, posY - menu.size() / 2 + i);
 					cout << menu[i] << endl;
@@ -42,11 +42,11 @@ struct Menu
 			c = _getch();
 			switch (c)
 			{
-			case 72: 
+			case 72:
 				if (pos > 0)
 					pos--;
 				break;
-			case 80: 
+			case 80:
 				if (pos < menu.size() - 1)
 					pos++;
 				break;
