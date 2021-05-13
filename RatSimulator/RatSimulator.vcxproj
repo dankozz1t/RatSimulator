@@ -144,8 +144,10 @@
   <ItemGroup>
     <ClInclude Include="CowAndBull.h" />
     <ClInclude Include="Func.h" />
+    <ClInclude Include="Graphic.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="RatSimulator.h" />
+    <ClInclude Include="Struct.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
