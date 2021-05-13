@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include<conio.h>
-#include "Func.h"
+#include"Func.h"
 
 using namespace std;
 
