@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CowAndBull.h" />
+    <ClInclude Include="FeedRat.h" />
     <ClInclude Include="Func.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="Menu.h" />

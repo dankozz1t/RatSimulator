@@ -1,5 +1,48 @@
 ﻿#pragma once
 
+int rulesBullAndCows()
+{
+	string rows[] = {
+	"Быки и коровы:",
+	" ",
+	"Это логическая игра, в ходе которой за N-количество попыток",
+	"Вы должны отгадать загаданное число",
+	"Числа генерируются от 0 до 9 без повторов",
+	"Количесво цифр и попыток зависит от выбраного режима",
+	"После кажой попытки вам дается \"оценка\" - быки и коровы ",
+	"Коровы - это количесво угаданных цифр на своих местах",
+	"Быки -  это количесвто угаданных цифр",
+	"За победу вам дается рейтинг и золото",
+	"За поражение у вас отнимается рейтинг и здоровье и сытость"
+
+	};
+	int sizeRowsArray = sizeof(rows) / sizeof(string);
+	for (int i = 0; i < sizeRowsArray; i++)
+	{
+		if (i == 0)
+			SetColor(Red, Black);
+		else
+			SetColor(White, Black);
+		gotoxy(26, 2 + i, size(rows[i]), 100);
+		cout << rows[i] << endl;
+	}
+
+	SetColor(Red, Black);
+	gotoxy(35, 14);
+	cout << "Стоимость 1 игры составляет 10 здоровья и 10 сытости";
+
+	SetColor(Cyan, Black);
+	printFrame(8, 54, 35, 16);
+
+	SetColor(LightCyan, Black);
+	tableCowAndBulls(25, 16);
+
+	int option = 0;
+	Menu m;
+	vector<string> mainMenu = { "        Играть", "        Назад" };
+	return option = m.select_vertical(mainMenu, 50, 26) + 1;
+}
+
 
 void generateSecretNum(int modeSize, char secretNum[]) 
 {

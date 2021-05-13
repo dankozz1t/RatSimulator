@@ -180,27 +180,26 @@ void printRAT(Account* account, int acc, char eyes = 'O')  //Состояние 
 		SetColor(Brown, Black);
 		break;
 	};
-	gotoxy(83, 18);
-	cout << " ___      ___  ";
-	gotoxy(83, 19);
-	cout << "/   \\    /   \\ ";
-	gotoxy(83, 20);
-	cout << "|    \\__/    | ";
-	gotoxy(83, 21);
-	cout << "|            | ";
-	gotoxy(83, 22);
-	cout << "\\__        __/ ";
-	gotoxy(83, 23);
-	cout << "  / " << eyes << "   " << eyes << " |  ";
-	gotoxy(83, 24);
-	cout << "@         |  ";
-	gotoxy(83, 25);
+	string ratArt = R"Rat(
+ ___      ___  
+/   \    /   \ 
+|    \__/    | 
+|            | 
+\__        __/
+  / )Rat";
+	ratArt.push_back(eyes);
+	ratArt.append("   ");
+	ratArt.push_back(eyes);
+	ratArt.append(" |  \n");
+	ratArt.append("@         |  \n");
+
 	if (eyes == 'X')
-		cout << " \\___     |  ";
+		ratArt.append(" \\___     |  \n");
 	else
-		cout << " \\___/    |  ";
-	gotoxy(83, 26);
-	cout << " |        |  ";
+		ratArt.append(" \\___/    |  \n");
+	ratArt.append(" |        |  ");
+
+	printRaw(ratArt, 83, 17);
 
 }
 
@@ -228,7 +227,7 @@ void printAcc(Account* account, int sizeAcc) //Тестовый вариант
 void printCharacteristics(Account* account, int acc)
 {
 	gotoxy(60, 26);
-	SetColor(Red, Black);
+	SetColor(LightRed, Black);
 	string mode;
 	switch (account[acc].rat.mode)
 	{
@@ -245,7 +244,9 @@ void printCharacteristics(Account* account, int acc)
 		mode = "Общажная";
 		break;
 	};
-	cout << mode << " крыса " << account[acc].rat.name;
+	cout << mode << " крыса ";
+	SetColor(Red, Black);
+	cout << account[acc].rat.name;
 
 
 	gotoxy(13, 2);

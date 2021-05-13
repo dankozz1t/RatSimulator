@@ -7,6 +7,7 @@
 #include"Menu.h"
 #include"Timer.h"
 #include"CowAndBull.h"
+#include"FeedRat.h"
 
 struct RatSimulator
 {
@@ -74,49 +75,6 @@ struct RatSimulator
 	}
 
 
-	int rulesBullAndCows()
-	{
-		string rows[] = {
-		"Быки и коровы:",
-		" ",
-		"Это логическая игра, в ходе которой за N-количество попыток",
-		"Вы должны отгадать загаданное число",
-		"Числа генерируются от 0 до 9 без повторов",
-		"Количесво цифр и попыток зависит от выбраного режима",
-		"После кажой попытки вам дается \"оценка\" - быки и коровы ",
-		"Коровы - это количесво угаданных цифр на своих местах",
-		"Быки -  это количесвто угаданных цифр",
-		"За победу вам дается рейтинг и золото",
-		"За поражение у вас отнимается рейтинг и здоровье и сытость"
-
-		};
-		int sizeRowsArray = sizeof(rows) / sizeof(string);
-		for (int i = 0; i < sizeRowsArray; i++)
-		{
-			if (i == 0)
-				SetColor(Red, Black);
-			else
-				SetColor(White, Black);
-			gotoxy(26, 2 + i, size(rows[i]), 100);
-			cout << rows[i] << endl;
-		}
-
-		SetColor(Red, Black);
-		gotoxy(35, 14);
-		cout << "Стоимость 1 игры состоявлеят 10 здоровья и 10 сытости";
-
-		SetColor(Cyan, Black);
-		printFrame(8, 54, 35, 16);
-
-		SetColor(LightCyan, Black);
-		tableCowAndBulls(25, 16);
-
-		int option = 0;
-		Menu m;
-		vector<string> mainMenu = { "        Играть", "        Назад" };
-		return option = m.select_vertical(mainMenu, 50, 26) + 1;
-	}
-
 	void miniGames(int acc)
 	{
 		do {
@@ -182,10 +140,31 @@ struct RatSimulator
 				}
 				break;
 			case 2:
+				system("cls");
+				SetColor(Red, Black);
+				gotoxy(0, 15, 11);
+				cout << "В процессе" << endl;
+				SetColor(Green, Black);
+				gotoxy(30, 27);
+				system("pause");
 				break;
 			case 3:
+				system("cls");
+				SetColor(Red, Black);
+				gotoxy(0, 15, 11);
+				cout << "В процессе" << endl;
+				SetColor(Green, Black);
+				gotoxy(30, 27);
+				system("pause");
 				break;
 			case 4:
+				system("cls");
+				SetColor(Red, Black);
+				gotoxy(0, 15, 11);
+				cout << "В процессе" << endl;
+				SetColor(Green, Black);
+				gotoxy(30, 27);
+				system("pause");
 				break;
 			case 5:
 				return;
@@ -230,10 +209,8 @@ struct RatSimulator
 				break;
 			case 2:
 				system("cls");
-				SetColor(Red, Black);
-				gotoxy(0, 15, 11);
-				cout << "В процессе" << endl;
-				SetColor(Green, Black);
+				FeedRat();
+
 				gotoxy(30, 27);
 				system("pause");
 				break;
