@@ -2,11 +2,10 @@
 
 
 
-void generateSecretNum(int modeSize, char secretNum[]) {
-	srand(time(0));
+void generateSecretNum(int modeSize, char secretNum[]) 
+{
 	srand(time(0));
 	char buff[2]{ NULL };
-
 	int randNum[8]{ NULL };
 
 	for (int i = modeSize - 1; i >= 0; i--) //Муть, но работает
@@ -19,7 +18,7 @@ void generateSecretNum(int modeSize, char secretNum[]) {
 				i++;
 		}
 	}
-	for (size_t i = 0; i < modeSize; i++)
+	for (size_t i = 0; i < modeSize; i++) //Из инт в чар
 	{
 		_itoa(randNum[i], buff, 10);
 		strcat(secretNum, buff);
@@ -141,9 +140,9 @@ int bullsAndCows(int& modeSize)
 		modeSize = 6;
 		att = 30;
 	}
+
 	system("cls");
 	SetColor(Green, Black);
-
 	ShowConsoleCursor(true);
 
 	char* secretNum = new char[modeSize] {NULL};
