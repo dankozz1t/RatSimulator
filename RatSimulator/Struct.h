@@ -22,11 +22,12 @@ struct Date
 struct Rat
 {
 	char name[10];
-	int mode = 1;
-	int rating = 0;
-	int satiety = 0;
-	int gold = 0;
-	int health = 100;
+	int mode;
+	int rating;
+	int satiety;
+	int gold;
+	int health;
+	int FeedingAttempts;
 };
 
 struct Account
@@ -34,5 +35,4 @@ struct Account
 	Rat rat;
 	Date date;
 	int time = 0;
-	int countFeed = 0;
 };

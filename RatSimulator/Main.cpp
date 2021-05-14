@@ -2,7 +2,7 @@
 #include<iostream>
 #include<string.h> //работа с строками
 #include<fstream> //работа с файлами
-#include<Windows.h> //SetConsoleTitleA
+#include<Windows.h> //SetConsoleTitleA, sleep, +++
 #include"Func.h"
 #include"RatSimulator.h"
 #include"Menu.h"

@@ -40,26 +40,26 @@ struct RatSimulator
 				acc.rat.satiety = 200;
 				acc.rat.gold = 10;
 				acc.rat.health = 200;
-				acc.countFeed = 5;
+				acc.rat.FeedingAttempts = 5;
 
 				break;
 			case 2:
 				acc.rat.satiety = 100;
 				acc.rat.gold = 5;
 				acc.rat.health = 100;
-				acc.countFeed = 2;
+				acc.rat.FeedingAttempts = 2;
 				break;
 			case 3:
 				acc.rat.satiety = 50;
 				acc.rat.gold = 0;
 				acc.rat.health = 50;
-				acc.countFeed = 0;
+				acc.rat.FeedingAttempts = 0;
 				break;
 			case 4:
 				acc.rat.satiety = 999;
 				acc.rat.gold = 999;
 				acc.rat.health = 999;
-				acc.countFeed = 999;
+				acc.rat.FeedingAttempts = 999;
 				break;
 			case 5:
 				printTypes();
