@@ -32,45 +32,51 @@ void printPacman()
 
 void printFood(int x)
 {
-	const int ROWS_CONT = 5;
+	const int ROWS_CONT = 7;
 	string rowsT[ROWS_CONT] = {
-	"   #####       #####       #####       #####       #####       #####       #####       #####    ",
-	"  #     #     #     #     #     #     #     #     #     #     #     #     #     #     #     #   ",
-	" #       #   #       #   #       #   #       #   #       #   #       #   #       #   #       #  ",
-	"  #     #     #     #     #     #     #     #     #     #     #     #     #     #     #     #   ",
-	"   #####       #####       #####       #####       #####       #####       #####       #####    "
+	"      ",
+	"   #####       #####       #####       #####       #####       #####       #####   ",
+	"  #     #     #     #     #     #     #     #     #     #     #     #     #     #    ",
+	" #       #   #       #   #       #   #       #   #       #   #       #   #       # ",
+	"  #     #     #     #     #     #     #     #     #     #     #     #     #     #  ",
+	"   #####       #####       #####       #####       #####       #####       ##### ",
+	"     "
 	};
 
 	for (int i = 0; i < ROWS_CONT; i++)
 	{
-		gotoxy(100-x, 8 + i);
+		
+		gotoxy(100-x, 7 + i);
 		cout << rowsT[i] << endl;
+		
 	}
 }
 
 int RulesToFeed(Account* account, int acc)
 {
 
-	const int ROWS_CONT = 10;
+	const int ROWS_CONT = 12;
 	string rows[ROWS_CONT] = {
 	"Проголодались?? Тогда вам сюда!",
 	" ",
 	"Вы попали в режим пополнения сытости",
 	"Сейчас вы больше хомяк, нежели крыса",
-	"Ваша задача сьесть максимальное количесво еды",
+	"Ваша задача сьесть максимальное количество еды",
 	"У вас есть всего лишь 10 секунд что бы набить пузо",
 	"Каждый нажатый ПРОБЕЛ равняется одной сытости",
+	" ",
+	"Вам нужно нажимать пробел пока не закончится время",
 	"",
 	"При попытке жульничать вас остановит крысиный патруль",
 	"Будьте честны, ведь он заберет всё ваше золото и обнулит рейтинг!"
 	};
 	for (int i = 0; i < ROWS_CONT; i++)
 	{
-		if (i == 0 || i == 7)
+		if (i == 0 || i == 8)
 			SetColor(Red, Black);
 		else
 			SetColor();
-		gotoxy(0, 5 + i + 1, size(rows[i]));
+		gotoxy(0, 4 + i + 1, size(rows[i]));
 		cout << rows[i] << endl;
 	}
 
@@ -111,8 +117,8 @@ void FeedRat(Account* account, int acc)//Добавить меню правил,
 
 
 				SetColor(Red, Black);
-				gotoxy(0, 18, 9);
-				cout << "Время: " << timeNow << endl;
+				gotoxy(0, 18, 18);
+				cout << "Прошло: " << timeNow << " секунд" << endl;
 				gotoxy(0, 20, 15);
 				cout << "Хапнул еды: " << spaceCount << endl;
 
@@ -127,8 +133,8 @@ void FeedRat(Account* account, int acc)//Добавить меню правил,
 
 			system("cls");
 			SetColor(Red, Black);
-			gotoxy(0, 15, 9);
-			cout << "Время: " << timeNow << endl;
+			gotoxy(0, 15, 17);
+			cout << "Прошло 10 секунд" << endl;
 
 			if (spaceCount < 70)
 			{
