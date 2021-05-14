@@ -188,7 +188,8 @@ int bullsAndCows(int& modeSize)
 	SetColor(Green, Black);
 
 	char* secretNum = new char[modeSize] {NULL};
-	char* previous = new char[] {NULL};
+	//char* previous = new char[] {NULL};
+	char* previous = new char[0] {};
 	cout << "#--------------------------------------#" << endl;
 	cout << " Попыток: " << att << endl;
 	generateSecretNum(modeSize, secretNum);

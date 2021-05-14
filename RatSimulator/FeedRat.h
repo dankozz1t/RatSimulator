@@ -4,23 +4,24 @@
 
 void printPacman()
 {
-	const int ROWS_CONT = 15;
+	const int ROWS_CONT = 16;
 	string rowsT[ROWS_CONT] = {
-	"       ####      ",
-	"     ##    ##     ",
-	"    #        #    ",
-	"   #          #   ",
-	"  #     @      #",
-	"  #          ## ",
-	" #        ### ",
-	" #       # ",
-	" #        ### ",
-	"  #          ## ",
-	"  #            #",
-	"   #          #   ",
-	"    #        #    ",
-	"     ##    ##     ",
-	"       ####       "
+	"       #######   ",
+	"     ##       ##     ",
+	"    #           #    ",
+	"   #             #   ",
+	"  #       @       #",
+	"  #             ## ",
+	" #           ### ",
+	" #          # ",
+	" #          # ",
+	" #           ### ",
+	"  #             ## ",
+	"  #               #",
+	"   #             #   ",
+	"    #           #    ",
+	"     ##       ##     ",
+	"       #######       "
 
 	};
 	for (int i = 0; i < ROWS_CONT; i++)
@@ -46,7 +47,7 @@ void printFood(int x)
 	for (int i = 0; i < ROWS_CONT; i++)
 	{
 		
-		gotoxy(100-x, 7 + i);
+		gotoxy(100-x, 8 + i);
 		cout << rowsT[i] << endl;
 		
 	}
@@ -136,7 +137,7 @@ void FeedRat(Account* account, int acc)//Добавить меню правил,
 			gotoxy(0, 15, 17);
 			cout << "Прошло 10 секунд" << endl;
 
-			if (spaceCount < 70)
+			if (spaceCount < 80)
 			{
 				Sleep(3000);
 				system("cls");
