@@ -139,7 +139,7 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 	SetColor();
 }
 
-int menuShop(int pos=0, int textСolor = LightCyan, int textСolorNOW = Blue)
+int menuShop(int (*printCell)(), int pos=0, int textСolor = LightCyan, int textСolorNOW = Blue)
 {
 	char c = 0;
 	while (c != Enter)
@@ -147,6 +147,7 @@ int menuShop(int pos=0, int textСolor = LightCyan, int textСolorNOW = Blue)
 		for (int i = 0; i < 2; i++)
 		{
 			SetColor(textСolor, Black);
+	
 			printFrame(16, 30, 3, 3);
 			printFrame(16, 30, 35, 3);
 			printFrame(16, 30, 67, 3);
@@ -154,6 +155,7 @@ int menuShop(int pos=0, int textСolor = LightCyan, int textСolorNOW = Blue)
 			SetColor(textСolorNOW, Black);
 			int xOs = (pos == 0 || pos == 1) ? ((pos == 0) ? 3 : 35) : 67; //Тернарные имба
 			printFrame(16, 30, xOs, 3);
+			printCell();
 
 		}
 		c = _getch();

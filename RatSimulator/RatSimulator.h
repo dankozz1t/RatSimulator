@@ -258,6 +258,8 @@ struct RatSimulator
 			Menu m;
 			vector<string> mainMenu = { "      Новая игра", "     Я уже играл", "       Рекорды", "       Правила" ,"      Об авторе" , "        Выход" };
 
+			int item = 2;
+
 			int num = m.select_vertical(mainMenu, 39, 18) + 1;
 			switch (num)
 			{
@@ -288,7 +290,16 @@ struct RatSimulator
 				system("pause");
 				break;
 			case 6:
-				return;
+				while (item != 0) //Тестирую магазин
+				{
+					gotoxy(0, 23, 34);
+					SetColor(Red, Black);
+					cout << "Прилавок пустой!! Ты что слепая??" << endl;
+					system("pause>nul");
+					system("cls");
+					item = menuShop(&firstAidKit, item);
+				}
+				//return;
 			default:
 				break;
 			}

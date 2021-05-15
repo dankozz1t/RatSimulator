@@ -12,15 +12,16 @@ void careRat(Account* account, int acc)
 )Rat";
 	printRaw(signboard, 0, 0, 1, Cyan, Black);
 
-	int item = menuShop();
-	while (item > 0)
+
+	int item = 2;
+	while (item != 0)
 	{
 		gotoxy(0, 23, 34);
 		SetColor(Red, Black);
 		cout << "Прилавок пустой!! Ты что слепая??" << endl;
 		system("pause>nul");
 		system("cls");
-		item = menuShop(item);
+		item = menuShop(&firstAidKit, item);
 	}
 
 	Menu sP;

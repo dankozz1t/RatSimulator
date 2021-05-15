@@ -441,3 +441,14 @@ void purchase(Account* account, int acc, bool acquisition)
 	}
 }
 
+
+int firstAidKit()
+{
+	string textGlobal = R"Rat(
+АПТЕЧКА
+)Rat";
+	
+	printRaw(textGlobal, 11, 4, 0, LightRed, Black); //TODO разобраться с форматированием по центру от указанного параметра. Заполнить ячейки.
+	return 0;
+}
+
