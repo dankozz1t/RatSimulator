@@ -14,6 +14,11 @@ enum ConsoleColor
 	LightBlue = 9, LightGreen = 10, LightCyan = 11, LightRed = 12, LightMagenta = 13, Yellow = 14, White = 15
 };
 
+enum KeyboardKey
+{
+	Up = 72, Down = 80, Right = 77, Left = 75, Enter = 12, Space = 32
+};
+
 
 void SetColor(int text = 7, int background = 0)
 {
@@ -102,7 +107,7 @@ int findMaxString(vector<string> a) { // Возвращает длину сам�
 //Функция посимвольно печаетает с возможностью форматирования по центру, изменениям цвета и задержкой(анимацией)
 void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolor = 7, int backgroundСolor = 0, int sleep = 0) 
 {
-	int y = 0, countChar = 0, symbolNow = 0;
+	int y = 0, countChar = -1, symbolNow = 0;
 	if (!(textСolor == 7 && backgroundСolor == 0)) SetColor(textСolor, backgroundСolor);
 
 	for (int i = 0; i < raw.size(); i++) {
@@ -120,7 +125,7 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 					if (raw[symbolNow] == '\n')
 					{
 						centerFormatting = countChar;
-						countChar = 0;
+						countChar = -1;
 						break;
 					}
 				}
@@ -130,7 +135,6 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 			countChar++;
 		}
 	}
-
 	SetColor();
 }
 

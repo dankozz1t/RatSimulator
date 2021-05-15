@@ -289,7 +289,7 @@ struct RatSimulator
 				system("pause");
 				break;
 			case 6:
-				return;
+				careRat();
 			default:
 				break;
 			}
