@@ -4,6 +4,7 @@
 #include <vector>
 #include<Windows.h>
 #include<typeinfo>
+#include<conio.h> //getch
 
 using namespace std;
 
@@ -16,7 +17,7 @@ enum ConsoleColor
 
 enum KeyboardKey
 {
-	Up = 72, Down = 80, Right = 77, Left = 75, Enter = 12, Space = 32
+	Up = 72, Down = 80, Right = 77, Left = 75, Enter = 13, Space = 32
 };
 
 
@@ -136,6 +137,44 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 		}
 	}
 	SetColor();
+}
+
+int menuShop(int pos=0, int textСolor = LightCyan, int textСolorNOW = Blue)
+{
+	char c = 0;
+	while (c != Enter)
+	{
+		for (int i = 0; i < 2; i++)
+		{
+			SetColor(textСolor, Black);
+			printFrame(16, 30, 3, 3);
+			printFrame(16, 30, 35, 3);
+			printFrame(16, 30, 67, 3);
+
+			SetColor(textСolorNOW, Black);
+			int xOs = (pos == 0 || pos == 1) ? ((pos == 0) ? 3 : 35) : 67; //Тернарные имба
+			printFrame(16, 30, xOs, 3);
+
+		}
+		c = _getch();
+
+		switch (c)
+		{
+		case Left:
+			if (pos == 0)
+				pos = 2;
+			else
+				pos--;
+			break;
+		case Right:
+			if (pos == 2)
+				pos = 0;
+			else
+				pos++;
+			break;
+		}
+	}
+	return pos;
 }
 
 
