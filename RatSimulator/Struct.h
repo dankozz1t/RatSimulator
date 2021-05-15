@@ -27,7 +27,6 @@ struct Rat
 	int satiety;
 	int gold;
 	int health;
-	int FeedingAttempts;
 };
 
 struct Account
@@ -35,4 +34,5 @@ struct Account
 	Rat rat;
 	Date date;
 	int time = 0;
+	int FeedingAttempts;
 };
