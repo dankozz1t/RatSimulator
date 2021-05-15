@@ -25,16 +25,20 @@ struct RatSimulator
 		Account acc;
 		cin >> acc.rat.name;
 		ShowConsoleCursor(false);
+
 		int num = 0;
 		do {
 			system("cls");
-			gotoxy(36, 10);
+
+			printTypes();
+
+			gotoxy(36, 15);
 			SetColor(Green, Black);
 			cout << "Выберите ваш тип крысы:" << endl;
 			Menu breed;
-			vector<string> menuBreed = { "        Хаски", "        Дамбо" , "        Сфинкс", "       Общажная", "       О типах" };
+			vector<string> menuBreed = { "        Хаски", "        Дамбо" , "        Сфинкс", "       Общажная" };
 
-			num = breed.select_vertical(menuBreed, 36, 14) + 1;
+			num = breed.select_vertical(menuBreed, 36, 19) + 1;
 			switch (num)
 			{
 			case 1:
@@ -63,10 +67,7 @@ struct RatSimulator
 				acc.FeedingAttempts = 999;
 				break;
 			case 5:
-				printTypes();
-				break;
-			default:
-				break;
+				return;
 			}
 			acc.rat.rating = 0;
 			acc.rat.mode = num;
@@ -251,10 +252,8 @@ struct RatSimulator
 	{
 		do {
 			system("cls");
-			SetColor(Magenta, Black);
-			printFrame(28, 98, 1, 1);
 			SetColor(Green, Black);
-			printScreensaver(); //Заставка
+			printScreensaver();
 
 			Menu m;
 			vector<string> mainMenu = { "      Новая игра", "     Я уже играл", "       Рекорды", "       Правила" ,"      Об авторе" , "        Выход" };
@@ -289,7 +288,7 @@ struct RatSimulator
 				system("pause");
 				break;
 			case 6:
-				careRat();
+				return;
 			default:
 				break;
 			}
