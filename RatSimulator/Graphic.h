@@ -56,9 +56,9 @@ void printScreensaver() //Заставка
 
 void printTypes()
 {
-	SetColor(Magenta, Black);
-	printFrame(8, 74, 13, 12);
-	SetColor(LightMagenta, Black);
+	SetColor(LightGreen, Black);
+	printFrame(8, 74, 13, 6);
+	SetColor(Green, Black);
 	const int ROWS_CONT = 6;
 	string rows[ROWS_CONT] = {
 	" Тип крысы: | Здоровье: | Сытость: | Покормить: | Зотоло:  | Сложность: ",
@@ -70,13 +70,10 @@ void printTypes()
 	};
 	for (int i = 0; i < ROWS_CONT; i++)
 	{
-		gotoxy(0, 12 + i + 1, size(rows[i]));
+		gotoxy(0, 6 + i + 1, size(rows[i]));
 		cout << rows[i] << endl;
 	}
 
-	SetColor(Green, Black);
-	gotoxy(30, 20);
-	system("pause");
 }
 
 void printRules()
@@ -335,5 +332,112 @@ void printShopRat()
 
 	SetColor();
 	printRaw(ratArt, 1, 1);
+}
+
+void purchase(Account* account, int acc, bool acquisition)
+{
+	printShopRat();
+	string signboard = R"Rat(
+КРЫСИНЫЙ МАГАЗИН ПАЦЮЧОК
+)Rat";
+	printRaw(signboard, 5, 1, 1, Red, Black);
+
+	if (acquisition)
+	{
+		string textDealer = R"Rat(
+- Спасибо за покупку! Приходите еще!
+)Rat";
+		printRaw(textDealer, 0, 3, 1, LightRed, Black, 50);
+	}
+	else
+	{
+		string textDealer = R"Rat(
+- Эх, помню я был такой же молодой и глу..
+)Rat";
+		printRaw(textDealer, 0, 3, 1, LightRed, Black, 50);
+
+
+		Menu m;
+		vector<string> Dealer = { " Выслушать торговца", "   Чел...Ты в муте" };
+
+		int num = m.select_vertical(Dealer, 39, 18) + 1;
+		if (num == 1)
+		{
+			system("cls");
+			printShopRat();
+			string signboard = R"Rat(
+КРЫСИНЫЙ МАГАЗИН ПАЦЮЧОК
+)Rat";
+			printRaw(signboard, 0, 1, 1, Red, Black);
+
+			string textDealer2 = R"Rat(
+- Эх, помню я был такой же молодой и глупой крысой
+- Лез в драки, разбойничал, но ничего повзрослел-помудрел..
+- Да и вообще....
+- Я в своём познании настолько преисполнился, что как будто бы уже 100
+- триллионов миллиардов лет проживаю на триллионах и триллионах таких же планет
+- Понимаешь?
+- Да ничего ты не понимаешь!
+- Ладно, я вижу ты не плохая крыса.....
+- Но сожалению я не могу дать тебе этот товар
+- Пойми меня, пенсии маленькие...
+- Приходи когда появятся деньги
+)Rat";
+
+			printRaw(textDealer2, 5, 3, 1, LightRed, Black, 50);
+			SetColor(Red, Black);
+			gotoxy(30, 27);
+			system("pause");
+
+			system("cls");
+
+			string textGlobal = R"Rat(
+Вы очень понравили продавцу, он рассказал о вас другим крысам
+- вы получили +25 рейтинга
+)Rat";
+			printRaw(textGlobal, 0, 13, 1, LightRed, Black, 50);
+				account[acc].rat.rating += 25;
+		}
+		else
+		{
+			system("cls");
+			printShopRat();
+			string signboard = R"Rat(
+КРЫСИНЫЙ МАГАЗИН ПАЦЮЧОК
+)Rat";
+			printRaw(signboard, 8, 1, 1, Red, Black);
+
+			string textRat = R"Rat(
+- Чел...Ты в муте
+)Rat";
+			printRaw(textRat, 0, 3, 1, Yellow, Black, 50);
+			SetColor(Red, Black);
+			gotoxy(30, 27);
+			system("pause");
+
+			string textDealer2 = R"Rat(
+- Чт..чт...ЧТО???
+
+- ЭТО ЧТО ЗА НЕВЕЖЛЕВАЯ КРЫСА? 
+- Я ВСЕ ПОНЯЛ, ТЫ ХОТЕЛА СВОРОВАТЬ МОЙ ТОВАР???
+- БРЫСЬ ОТСЮДА, ПОКА Я НЕ ВЫЗВАЛ КРЫСИНЫЙ ПАТРУЛЬ!!!
+)Rat";
+			printRaw(textDealer2, 8, 6, 1, LightRed, Black, 50);
+			SetColor(Red, Black);
+			gotoxy(30, 27);
+			system("pause");
+
+
+			system("cls");
+
+			string textGlobal = R"Rat(
+Продавец написал на вас заявление в крысиный патруль
+- вы получили -25 рейтинга
+)Rat";
+			printRaw(textGlobal, 0, 13, 1, LightRed, Black, 50);
+
+				account[acc].rat.rating -= 25;
+		}
+	}
 }
 

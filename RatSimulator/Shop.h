@@ -3,81 +3,49 @@
 
 
 
-void careRat()
+void careRat(Account* account, int acc)
 {
 	system("cls");
-	SetColor(LightCyan, Black);
-	printFrame(28, 98, 1, 1);
 
 	string signboard = R"Rat(
 ЗАБОТА О СЕБЕ
 )Rat";
 	printRaw(signboard, 0, 0, 1, Cyan, Black);
 
-	//SetColor(LightCyan, Black);
-	//printFrame(16, 30, 3, 3);
-	//printFrame(16, 30, 35, 3);
-	//printFrame(16, 30, 67, 3);
-
-	//SetColor(Green, Black);
-	//printFrame(16, 30, 3, 3);
-	char c = 0;
-	int pos = 0;
-	while (c != Enter)
+	int item = menuShop();
+	while (item > 0)
 	{
-		for (int i = 0; i < 2; i++)
-		{
-			SetColor(LightCyan, Black);
-			printFrame(16, 30, 3, 3);
-			printFrame(16, 30, 35, 3);
-			printFrame(16, 30, 67, 3);
-
-			SetColor(Green, Black);
-			int xOs = (pos == 0 || pos == 1) ? ((pos == 0) ? 3 : 35) : 67;
-				printFrame(16, 30, xOs, 3);
-				cout << "\t" << pos << " " << endl;
-
-		}
-		c = _getch();
-		cout << "\t\t\t" << (int)c << endl;
-		switch (c)
-		{
-		case Left: //разобраться с багом!
-			if (pos < 0)
-				pos = 4;
-				pos--;
-			break;
-		case Right:
-			if (pos > 3)
-				pos = 1;
-				pos++;
-			break;
-		}
+		gotoxy(0, 23, 34);
+		SetColor(Red, Black);
+		cout << "Прилавок пустой!! Ты что слепая??" << endl;
+		system("pause>nul");
+		system("cls");
+		item = menuShop(item);
 	}
 
+	Menu sP;
+	vector<string> shopPointer = { "        Купить", "        Назад" };
 
-	//Menu sP;
-	//vector<string> shopPointer = { "    Аптечка", "     неАптечка", "      НеАптечка", "        Выход" };
+	int num = sP.select_vertical(shopPointer, 39, 23) + 1;
 
-	//int num = sP.select_vertical(shopPointer, 39, 23) + 1;
-
-	//switch (num)
-	//{
-	//case 1:
-	//
-	//	break;
-	//case 2:
-	//	
-	//	break;
-	//case 3:
-
-	//	break;
-	//case 4:
-	//	return;
-	//}
+	switch (num)
+	{
+	case 1:
+		system("cls");
+		if (item == 0 && account[acc].rat.gold >= 100) //Аптечка
+		{
+			purchase(account, acc, true);
+			account[acc].rat.gold -= 100;
+			account[acc].rat.health += 100;
+		}
+		else
+			purchase(account, acc, false);
 
 
-	SetColor(Blue, Black); gotoxy(30, 27); system("pause");
+		break;
+	case 2:
+		return;
+	}
 }
 
 
@@ -131,7 +99,7 @@ void shop(Account* account, int acc)
 		switch (num)
 		{
 		case 1:
-			careRat();
+			careRat(account, acc);
 			break;
 		case 2:
 			accessories();
