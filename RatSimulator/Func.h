@@ -112,7 +112,7 @@ void printRaw(string raw, int x, int _y, int fg = 7, int bg = 0) { // Посим
 	SetColor();
 }
 
-void printByLetter(char str[])
+void printByLetter(char str[]) //Печатает по символьно(Анимка) 
 {
 	for (size_t i = 0; i < strlen(str); i++)
 	{
