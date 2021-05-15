@@ -92,7 +92,7 @@ int RulesToFeed(Account* account, int acc)
 	return option = m.select_vertical(mainMenu, 38, 23) + 1;
 }
 
-void FeedRat(Account* account, int acc)//Добавить меню правил, анимацию еды в пот пакмана , бонусы
+void FeedRat(Account* account, int acc)
 {
 	system("cls");
 
