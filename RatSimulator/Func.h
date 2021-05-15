@@ -99,27 +99,41 @@ int findMaxString(vector<string> a) { // Возвращает длину сам�
 	return max;
 }
 
-void printRaw(string raw, int x, int _y, int fg = 7, int bg = 0) { // Посимвольно копирует 
-	int y = 0;
-	if (!(fg == 7 && bg == 0)) SetColor(fg, bg);
+//Функция посимвольно печаетает с возможностью форматирования по центру, изменениям цвета и задержкой(анимацией)
+void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolor = 7, int backgroundСolor = 0, int sleep = 0) 
+{
+	int y = 0, countChar = 0, symbolNow = 0;
+	if (!(textСolor == 7 && backgroundСolor == 0)) SetColor(textСolor, backgroundСolor);
+
 	for (int i = 0; i < raw.size(); i++) {
+
 		cout << raw[i];
+		if (sleep)
+			Sleep(sleep);
 		if (raw[i] == '\n') {
+			if (centerFormatting)
+			{
+				while (symbolNow < raw.size())
+				{
+					countChar++;
+					symbolNow++;
+					if (raw[symbolNow] == '\n')
+					{
+						centerFormatting = countChar;
+						countChar = 0;
+						break;
+					}
+				}
+			}
 			y++;
-			gotoxy(x, _y + y);
+			gotoxy(x, _y + y, centerFormatting);
+			countChar++;
 		}
 	}
+
 	SetColor();
 }
 
-void printByLetter(char str[]) //Печатает по символьно(Анимка) 
-{
-	for (size_t i = 0; i < strlen(str); i++)
-	{
-		cout << str[i];
-		Sleep(50);
-	}
-}
 
 
 
