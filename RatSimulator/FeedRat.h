@@ -84,7 +84,7 @@ int RulesToFeed(Account* account, int acc)
 
 	SetColor(Red, Black);
 	gotoxy(0, 19, 27);
-	cout << "Попыток покормить крысу: " << account[acc].rat.FeedingAttempts << endl;
+	cout << "Попыток покормить крысу: " << account[acc].FeedingAttempts << endl;
 
 	int option = 0;
 	Menu m;
@@ -92,11 +92,11 @@ int RulesToFeed(Account* account, int acc)
 	return option = m.select_vertical(mainMenu, 38, 23) + 1;
 }
 
-void FeedRat(Account* account, int acc)
+void feedRat(Account* account, int acc)
 {
 	system("cls");
 
-	if (account[acc].rat.FeedingAttempts > 0)
+	if (account[acc].FeedingAttempts > 0)
 	{
 
 		if (RulesToFeed(account, acc) == 1)
@@ -137,9 +137,9 @@ void FeedRat(Account* account, int acc)
 			gotoxy(0, 15, 17);
 			cout << "Прошло 10 секунд" << endl;
 
-			if (spaceCount < 80)
+			if (spaceCount < 70)
 			{
-				Sleep(3000);
+				Sleep(2000);
 				system("cls");
 
 
@@ -148,61 +148,40 @@ void FeedRat(Account* account, int acc)
 
 				gotoxy(0, 16, size(account[acc].rat.name) + 17);
 				cout << "Ну что, " << account[acc].rat.name << ", наелся?";
-				account[acc].rat.FeedingAttempts--;
+				account[acc].FeedingAttempts--;
 				account[acc].rat.satiety += spaceCount;
 			}
 			else //ну давай-давай, нападай
 			{
-				Sleep(3000);
+				Sleep(2000);
 				system("cls");
 
 				printPolic();
-				SetColor();
 
-				char str[]{ "- Так-так, что тут у нас? СКОЛЬКО еды??" };
-				gotoxy(0, 11, 14);
-				printByLetter(str);
+				string textPolic = R"Rat(
+- Так-так, что тут у нас? СКОЛЬКО еды??
+- На вид такая приличная крыса!, а на деле ВОРОВКА!!!
+- ВЗЯТЬ ЕЁ!
+)Rat";
+				printRaw(textPolic, 43, 8, 0, White, Black, 50);
 
-				char str1[]{ "- На вид такая приличная крыса!, а на деле ВОРОВКА!!!" };
-				gotoxy(0, 12, 14);
-				printByLetter(str1);
-
-				char str2[]{ "- ВЗЯТЬ ЕЁ!" };
-				gotoxy(0, 13, 14);
-				printByLetter(str2);
-
-
-				SetColor(Green, Black);
-				gotoxy(30, 27);
-				system("pause");
+				SetColor(Green, Black); gotoxy(30, 27); system("pause");
 
 				system("cls");
 
-				SetColor(Red, Black);
-				gotoxy(30, 27);
-				char str4[]{ "Вы долго пытались оправдаться, но все улики против вас" };
-				gotoxy(0, 14, 55);
-				printByLetter(str4);
+				string textGlobal = R"Rat(
+Вы долго пытались оправдаться, но все улики против вас
+- вы потратили всё золото что бы откупиться
+- вы потеряли всю репутацию(рейтинг)
+)Rat";
+				printRaw(textGlobal, 0, 13, 1, LightRed, Black, 50);
 
-
-				SetColor(LightRed, Black);
-				char str5[]{ "- вы потратили всё золото что бы откупиться" };
-				gotoxy(0, 15, 44);
-				printByLetter(str5);
-
-
-				char str6[]{ "- вы потеряли всю репутацию(рейтинг)" };
-				gotoxy(0, 16, 37);
-				printByLetter(str6);
 				account[acc].rat.gold = 0;
 				if (account[acc].rat.rating > 0)
 					account[acc].rat.rating = 0;
-
 			}
 
-			SetColor(Green, Black);
-			gotoxy(30, 27);
-			system("pause");
+			SetColor(Red, Black); gotoxy(30, 27); system("pause");
 		}
 		else
 			return;
