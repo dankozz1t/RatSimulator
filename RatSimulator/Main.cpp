@@ -21,14 +21,6 @@ int main()
 	system("mode con cols=100 lines=30");
 	ShowConsoleCursor(false);
 
-
-	//char spaceGet = _getch();
-
-	//int sda = spaceGet;
-
-	//cout << sda << endl;
-	//system("pause");
-
 	RatSimulator start;
 	start.menu();
 	SetColor(Black, Black);

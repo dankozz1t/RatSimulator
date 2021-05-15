@@ -274,7 +274,7 @@ void printCharacteristics(Account* account, int acc)
 	cout << account[acc].rat.rating;
 }
 
-void printPolic()
+void printPolic() //злой чел(агрессивный)
 {
 	const int ROWS_COUNT = 17;
 	string rows[ROWS_COUNT] = {
