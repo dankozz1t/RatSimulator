@@ -8,6 +8,7 @@
 #include"Timer.h"
 #include"CowAndBull.h"
 #include"FeedRat.h"
+#include"Shop.h"
 
 struct RatSimulator
 {
@@ -40,26 +41,26 @@ struct RatSimulator
 				acc.rat.satiety = 200;
 				acc.rat.gold = 10;
 				acc.rat.health = 200;
-				acc.rat.FeedingAttempts = 5;
+				acc.FeedingAttempts = 5;
 
 				break;
 			case 2:
 				acc.rat.satiety = 100;
 				acc.rat.gold = 5;
 				acc.rat.health = 100;
-				acc.rat.FeedingAttempts = 2;
+				acc.FeedingAttempts = 2;
 				break;
 			case 3:
 				acc.rat.satiety = 50;
 				acc.rat.gold = 0;
 				acc.rat.health = 50;
-				acc.rat.FeedingAttempts = 0;
+				acc.FeedingAttempts = 0;
 				break;
 			case 4:
 				acc.rat.satiety = 999;
 				acc.rat.gold = 999;
 				acc.rat.health = 999;
-				acc.rat.FeedingAttempts = 999;
+				acc.FeedingAttempts = 999;
 				break;
 			case 5:
 				printTypes();
@@ -208,16 +209,10 @@ struct RatSimulator
 				miniGames(acc);
 				break;
 			case 2:
-				FeedRat(account, acc);
+				feedRat(account, acc);
 				break;
 			case 3:
-				system("cls");
-				SetColor(Red, Black);
-				gotoxy(0, 15, 11);
-				cout << "В процессе" << endl;
-				SetColor(Green, Black);
-				gotoxy(30, 27);
-				system("pause");
+			shop(account, acc);
 				break;
 			case 4:
 				system("cls");
