@@ -148,6 +148,7 @@
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="RatSimulator.h" />
+    <ClInclude Include="Shop.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
