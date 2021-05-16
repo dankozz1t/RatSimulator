@@ -153,7 +153,13 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 
 			SetColor(textСolorNOW, Black);
 			     //Если первая ячейка      //Если вторая 
-			xOs = (pos == 0 || pos == 3 || pos == 1 || pos == 4) ? ((pos == 0 || pos == 3) ? 3 : 35) : 67; //Тернарные имба
+			//xOs = (pos == 0 || pos == 3 || pos == 1 || pos == 4) ? ((pos == 0 || pos == 3) ? 3 : 35) : 67; //Тернарные имба
+
+			if (pos == 0 || pos == 3 || pos == 1 || pos == 4) {
+				if (pos == 0 || pos == 3) xOs = 3;
+				else xOs = 35;
+			}
+			else xOs = 67;
 
 			printFrame(16, 30, xOs, 3);
 
@@ -180,10 +186,10 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 				pos++;
 			break;
 		case Up:
-			return pos = -1;
+			if (pos > 2) return pos = 0;
 			break;
 		case Down:
-			return pos = 3;
+			if (pos < 3) return pos = 3;
 			break;
 		case Enter:
 			return pos;

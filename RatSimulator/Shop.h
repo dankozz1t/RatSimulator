@@ -51,7 +51,7 @@ void careRat(Account* account, int acc)
 }
 
 
-void accessories(Account* account, int acc)
+void accessories(Account* account, int acc, int item = 0)
 {
 	system("cls");
 
@@ -63,28 +63,39 @@ void accessories(Account* account, int acc)
 	gotoxy(80, 26); SetColor(Yellow, Black);
 	cout << "Мое золото: " << account[acc].rat.gold << endl;
 
-	int item = -1;
-	while (item == -1)
-	{
-		item = menuShop(&bowRat, &headsetRat, &glassesRat);
-		while (item > 2 && item < 5) // Страница 2
+
+		 //Запуск на первую страницу 
+		
+		item = menuShop(&bowRat, &headsetRat, &glassesRat, item);
+		
+
+		while (item > 2 && item < 5) // Страница 2 
 		{
 			system("cls");
 			item = menuShop(&collarRat, NULL, NULL, item);
-			while (item > 3)
+
+			gotoxy(80, 26); SetColor(Yellow, Black);
+			cout << "Мое золото: " << account[acc].rat.gold << endl;
+
+			if (item == 0)
 			{
-				gotoxy(0, 23, 34);
-				SetColor(Red, Black);
+				accessories(account, acc, item);
+			}
+			else if (item == 3)
+			{
+				break;
+			}
+			else //Пустые прилавки
+			{
+				gotoxy(0, 23, 34); SetColor(Red, Black);
 				cout << "Прилавок пустой!! Ты что слепая??" << endl;
-				system("pause>nul");
-				system("cls");
+				system("pause>nul"); system("cls");
+
 				gotoxy(80, 26); SetColor(Yellow, Black);
 				cout << "Мое золото: " << account[acc].rat.gold << endl;
-				item = menuShop(&collarRat, NULL, NULL, item);
 			}
-			if (item == 3) break;
+
 		}
-	}
 
 	int color = Brown;
 	switch (item)
@@ -150,7 +161,7 @@ void accessories(Account* account, int acc)
 
 		break;
 	case 2:
-		accessories(account, acc);
+		accessories(account, acc, item);
 	}
 }
 
