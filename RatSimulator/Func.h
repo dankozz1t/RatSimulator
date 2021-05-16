@@ -30,7 +30,7 @@ void SetColor(int text = 7, int background = 0)
 void gotoxy(int x, int y, int sizeLen = 0, int sizeHeight = 100) //При наличии размера строки выполняется форматирование по центру
 {
 	if (sizeLen)
-		x = (x + sizeHeight - sizeLen) / 2;
+		x += (x + sizeHeight - sizeLen) / 2;
 
 	COORD coord;
 	coord.X = x;
@@ -106,7 +106,7 @@ int findMaxString(vector<string> a) { // Возвращает длину сам�
 }
 
 //Функция посимвольно печаетает с возможностью форматирования по центру, изменениям цвета и задержкой(анимацией)
-void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolor = 7, int backgroundСolor = 0, int sleep = 0) 
+void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolor = 7, int backgroundСolor = 0, int sleep = 0,int sizeHeight = 100)
 {
 	int y = 0, countChar = -1, symbolNow = 0;
 	if (!(textСolor == 7 && backgroundСolor == 0)) SetColor(textСolor, backgroundСolor);
@@ -132,7 +132,7 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 				}
 			}
 			y++;
-			gotoxy(x, _y + y, centerFormatting);
+			gotoxy(x, _y + y, centerFormatting, sizeHeight);
 			countChar++;
 		}
 	}

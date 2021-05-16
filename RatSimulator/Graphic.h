@@ -396,7 +396,7 @@ void purchase(Account* account, int acc, bool acquisition)
 - вы получили +25 рейтинга
 )Rat";
 			printRaw(textGlobal, 0, 13, 1, LightRed, Black, 50);
-				account[acc].rat.rating += 25;
+			account[acc].rat.rating += 25;
 		}
 		else
 		{
@@ -410,10 +410,7 @@ void purchase(Account* account, int acc, bool acquisition)
 			string textRat = R"Rat(
 - Чел...Ты в муте
 )Rat";
-			printRaw(textRat, 0, 3, 1, Yellow, Black, 50);
-			SetColor(Red, Black);
-			gotoxy(30, 27);
-			system("pause");
+			printRaw(textRat, 8, 3, 1, Yellow, Black, 50);
 
 			string textDealer2 = R"Rat(
 - Чт..чт...ЧТО???
@@ -436,7 +433,7 @@ void purchase(Account* account, int acc, bool acquisition)
 )Rat";
 			printRaw(textGlobal, 0, 13, 1, LightRed, Black, 50);
 
-				account[acc].rat.rating -= 25;
+			account[acc].rat.rating -= 25;
 		}
 	}
 }
@@ -446,9 +443,22 @@ int firstAidKit()
 {
 	string textGlobal = R"Rat(
 АПТЕЧКА
++50 к здоровью
+
+       .-----.      
+#::::::|+:::+|::::::#
+|-      `````      .|
+|`      .@@@.      .|
+|`   `::/@@@+::`   .|
+|`   .@@@@@@@@@-   .|
+|`   `--/@@@/--`   .|
+|`      .@@@.     ..|
+#..................:#
+
+ЦЕНА: 50 золота
 )Rat";
-	
-	printRaw(textGlobal, 11, 4, 0, LightRed, Black); //TODO разобраться с форматированием по центру от указанного параметра. Заполнить ячейки.
+
+	printRaw(textGlobal, 2,3, 1, LightRed, Black, 0, 30); //TODO разобраться с форматированием по центру от указанного параметра. Заполнить ячейки.
 	return 0;
 }
 

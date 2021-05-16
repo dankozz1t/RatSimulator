@@ -12,8 +12,11 @@ void careRat(Account* account, int acc)
 )Rat";
 	printRaw(signboard, 0, 0, 1, Cyan, Black);
 
-
-	int item = 2;
+	//gotoxy(80,26); SetColor(Yellow, Black);
+	//cout << "Мое золото: " << account[acc].rat.gold << endl;
+	gotoxy(80, 26); SetColor(Yellow, Black);
+	cout << "Мое золото: " << account[acc].rat.gold << endl;
+	int item = menuShop(&firstAidKit);
 	while (item != 0)
 	{
 		gotoxy(0, 23, 34);
@@ -21,6 +24,8 @@ void careRat(Account* account, int acc)
 		cout << "Прилавок пустой!! Ты что слепая??" << endl;
 		system("pause>nul");
 		system("cls");
+		gotoxy(80, 26); SetColor(Yellow, Black);
+		cout << "Мое золото: " << account[acc].rat.gold << endl;
 		item = menuShop(&firstAidKit, item);
 	}
 
@@ -36,8 +41,8 @@ void careRat(Account* account, int acc)
 		if (item == 0 && account[acc].rat.gold >= 100) //Аптечка
 		{
 			purchase(account, acc, true);
-			account[acc].rat.gold -= 100;
-			account[acc].rat.health += 100;
+			account[acc].rat.gold -= 50;
+			account[acc].rat.health += 50;
 		}
 		else
 			purchase(account, acc, false);
@@ -89,7 +94,7 @@ void shop(Account* account, int acc)
 - Привет, хвостатая, решила обновиться?
 - Выбери интересующий тебя раздел
 )Rat";
-		printRaw(ratArt, 0, 3, 1, LightRed, Black, 50);
+		printRaw(ratArt, 0, 3, 1, LightRed, Black, 0);
 
 
 		Menu sP;
