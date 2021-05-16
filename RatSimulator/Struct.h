@@ -33,6 +33,9 @@ struct Shop
 {
 	bool bow = false;
 	int colorBow;
+
+	bool headphones = false;
+	int colorHeadphones;
 };
 
 struct Account

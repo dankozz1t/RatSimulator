@@ -479,36 +479,82 @@ void printBow(int x = 85, int y = 19, int textColor = LightMagenta)
 	SetColor();
 }
 
-int accessoriesRat()
+int bowRat() //В меню
 {
 	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
 	cout << "БАНТИК";
 
-	gotoxy(7, 10, 16, 30); SetColor(Yellow, Black);
-	cout << "ЦЕНА: 10 золота";
+	gotoxy(7, 11, 16, 30); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 7  золота";
 
 	printBow(13, 5, Brown);
 
 	return 0;
 }
-void accessoriesRat(int colorItem = LightMagenta)
+int bowRat(int colorItem = LightMagenta) //Выбор цвета
 {
 	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
 	cout << "БАНТИК";
 
-	gotoxy(7, 10, 16, 30); SetColor(Yellow, Black);
-	cout << "ЦЕНА: 10 золота";
+	gotoxy(7, 11, 16, 30); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 7  золота";
 
 	printBow(13, 5, colorItem);
+	return 0;
 
 }
 
-int colorSelection()
+
+void printHeadphones(int x = 81, int y = 17, int textColor = LightGray)
+{
+	string printСell = R"Rat(
+   ___________
+  /.
+ / |
+(  |
+ \_|)Rat";
+	printRaw(printСell, x, y, 0, textColor, Black);
+
+	string printСell2 = R"Rat(
+_
+.\ 
+| \ 
+|  ) 
+|_/)Rat";
+	printRaw(printСell2, x+14, y, 0, textColor, Black);
+}
+
+int headsetRat() //В меню
+{
+	gotoxy(46, 4); SetColor(Red, Black);
+	cout << "НАУШНИКИ";
+
+	gotoxy(43, 11); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 10 золота";
+
+	printHeadphones(41, 4, Brown);
+
+	return 0;
+}
+
+int headsetRat(int colorItem = Brown) //В меню
+{
+	gotoxy(46, 4); SetColor(Red, Black);
+	cout << "НАУШНИКИ";
+
+	gotoxy(43, 11); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 10 золота";
+
+	printHeadphones(41, 4, colorItem);
+
+	return 0;
+}
+
+int colorSelection(int (*printCell)(int), int color, int x = 7, int y = 15)
 {
 	Menu mP;
-	vector<string> mPlayer = { "       Розовый", "       Красный", "       Зеленый", "       Желтый","        Синий" };
-	int color = Brown;
-	int num = mP.select_vertical(mPlayer, 7,14) + 1;
+	vector<string> mPlayer = { "       Розовый", "       Красный", "       Зеленый", "        Синий" };
+	int num = mP.select_vertical(mPlayer, x, y) + 1;
 	switch (num)
 	{
 	case 1:
@@ -521,12 +567,30 @@ int colorSelection()
 		color = Green;
 		break;
 	case 4:
-		color = Yellow;
-		break;
-	case 5:
 		color = Blue;
 		break;
 	}
-	accessoriesRat(color);
+	printCell(color);
 	return color;
 }
+
+//string ratArt = R"Rat(
+// ___      ___  
+///   \    /   \ 
+//|    \__/    | 
+//|            | 
+//\__        __/
+//  / )Rat";
+//ratArt.push_back(eyes);
+//ratArt.append("   ");
+//ratArt.push_back(eyes);
+//ratArt.append(" |  \n");
+//ratArt.append("@         |  \n");
+//
+//if (eyes == 'X')
+//ratArt.append(" \\___     |  \n");
+//else
+//ratArt.append(" \\___/    |  \n");
+//ratArt.append(" |        |  ");
+//
+//printRaw(ratArt, 83, 17);

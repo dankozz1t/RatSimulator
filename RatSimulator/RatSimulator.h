@@ -200,6 +200,9 @@ struct RatSimulator
 			if (account[acc].shop.bow)
 				printBow(85,19,account[acc].shop.colorBow);
 
+			if (account[acc].shop.headphones)
+			printHeadphones(81,17,account[acc].shop.headphones);
+
 			printCharacteristics(account, acc);
 
 			Menu mP;
@@ -227,8 +230,6 @@ struct RatSimulator
 				system("pause");
 				break;
 			case 5:
-				accessories(account, acc);
-
 				account[acc].time += time.elapsed();
 				return;
 			default:

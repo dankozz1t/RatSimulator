@@ -21,6 +21,15 @@ int main()
 	system("mode con cols=100 lines=30");
 	ShowConsoleCursor(false);
 
+	//char a = 0; //asci
+	//for (int i = 0; i < 255; i++)
+	//{
+	//	cout <<"№ " << i <<" cod: " << (int)a << " symb: " << a << endl;;
+	//	a++;
+	//}
+	//system("pause");
+
+
 	RatSimulator start;
 	start.menu();
 	SetColor(Black, Black);

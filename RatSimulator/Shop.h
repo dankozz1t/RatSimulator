@@ -22,7 +22,7 @@ void careRat(Account* account, int acc)
 		system("cls");
 		gotoxy(80, 26); SetColor(Yellow, Black);
 		cout << "Мое золото: " << account[acc].rat.gold << endl;
-		item = menuShop(&firstAidKit, item);
+		item = menuShop(&firstAidKit, NULL, item);
 	}
 
 	Menu sP;
@@ -62,8 +62,8 @@ void accessories(Account* account, int acc)
 	int ds = Blue;
 	gotoxy(80, 26); SetColor(Yellow, Black);
 	cout << "Мое золото: " << account[acc].rat.gold << endl;
-	int item = menuShop(&accessoriesRat);
-	while (item != 0)
+	int item = menuShop(&bowRat, &headsetRat);
+	while (item > 1)
 	{
 		gotoxy(0, 23, 34);
 		SetColor(Red, Black);
@@ -72,19 +72,21 @@ void accessories(Account* account, int acc)
 		system("cls");
 		gotoxy(80, 26); SetColor(Yellow, Black);
 		cout << "Мое золото: " << account[acc].rat.gold << endl;
-		item = menuShop(&accessoriesRat,item);
+		item = menuShop(&bowRat, &headsetRat, item);
 	}
-	
+
 	int color = Brown;
 	switch (item)
 	{
 	case 0: //Бантик
-		color =colorSelection();
+		color = colorSelection(&bowRat, color, 7, 15);
 		break;
+	case 1: //Наушники
+		color = colorSelection(&headsetRat, color, 38, 15);
 	default:
 		break;
 	}
-	
+
 
 	Menu sP;
 	vector<string> shopPointer = { "        Купить", "        Назад" };
@@ -95,13 +97,20 @@ void accessories(Account* account, int acc)
 	{
 	case 1:
 		system("cls");
-		if (item == 0 && account[acc].rat.gold >= 50) //Бантик
+		if (item == 0 && account[acc].rat.gold >= 7) //Бантик
 		{
 			purchase(account, acc, true);
 			account[acc].rat.gold -= 50;
 			account[acc].shop.bow = true;
 			account[acc].shop.colorBow = color;
 
+		}
+		else if (item == 1 && account[acc].rat.gold >= 10) //Наушники
+		{
+			purchase(account, acc, true);
+			account[acc].rat.gold -= 50;
+			account[acc].shop.headphones = true;
+			account[acc].shop.colorHeadphones = color;
 		}
 		else
 			purchase(account, acc, false);
