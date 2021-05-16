@@ -153,11 +153,17 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 			printFrame(16, 30, 67, 3);
 
 			SetColor(textСolorNOW, Black);
-			int xOs = (pos == 0 || pos ==3 || pos == 1 || pos ==4) ? ((pos == 0 || pos ==3) ? 3 : 35) : 67; //Тернарные имба
+			int xOs;
+			if (pos == 0 || pos == 3) //Если первая ячейка (1 и 2 страницы)
+				xOs = 3;
+			else if (pos == 1 || pos == 4) //Если вторая
+				xOs = 35;
+			else //Если третья
+				xOs = 67;
 			printFrame(16, 30, xOs, 3);
-			printCell();
-			if(printCell2) printCell2();
-			if (printCell3) printCell3();
+			printCell(); //Принт первой ячейки
+			if(printCell2) printCell2();  //Принт второй
+			if (printCell3) printCell3();  //Принт третьей
 		}
 
 		c = _getch();

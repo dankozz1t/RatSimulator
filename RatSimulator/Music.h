@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #pragma comment(lib, "winmm.lib")
 #include <mmsystem.h>
 
@@ -6,11 +7,9 @@
 #include <filesystem>
 #include"Func.h"
 
-
 using namespace std;
 using std::filesystem::current_path;
 const wstring dir = current_path().wstring();
-
 
 void playBiteSound() {
 
