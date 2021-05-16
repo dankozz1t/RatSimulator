@@ -562,13 +562,13 @@ int colorSelection(int (*printCell)(int), int color, int x = 7, int y = 15)
 		color = LightMagenta;
 		break;
 	case 2:
-		color = Red;
+		color = LightRed;
 		break;
 	case 3:
-		color = Green;
+		color = LightGreen;
 		break;
 	case 4:
-		color = Blue;
+		color = LightBlue;
 		break;
 	}
 	printCell(color);
