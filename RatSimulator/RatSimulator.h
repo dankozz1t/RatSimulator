@@ -197,6 +197,8 @@ struct RatSimulator
 				printRAT(account, acc);
 			else
 				printRAT(account, acc, 'X');
+			if (account[acc].shop.bow)
+				printBow(85,19,account[acc].shop.colorBow);
 
 			printCharacteristics(account, acc);
 
@@ -213,7 +215,7 @@ struct RatSimulator
 				feedRat(account, acc);
 				break;
 			case 3:
-			shop(account, acc);
+				shop(account, acc);
 				break;
 			case 4:
 				system("cls");
@@ -225,6 +227,8 @@ struct RatSimulator
 				system("pause");
 				break;
 			case 5:
+				accessories(account, acc);
+
 				account[acc].time += time.elapsed();
 				return;
 			default:
@@ -290,16 +294,7 @@ struct RatSimulator
 				system("pause");
 				break;
 			case 6:
-				while (item != 0) //Тестирую магазин
-				{
-					gotoxy(0, 23, 34);
-					SetColor(Red, Black);
-					cout << "Прилавок пустой!! Ты что слепая??" << endl;
-					system("pause>nul");
-					system("cls");
-					item = menuShop(&firstAidKit, item);
-				}
-				//return;
+				return;
 			default:
 				break;
 			}

@@ -441,7 +441,7 @@ void purchase(Account* account, int acc, bool acquisition)
 
 int firstAidKit()
 {
-	string textGlobal = R"Rat(
+	string printСell = R"Rat(
 АПТЕЧКА
 +50 к здоровью
 
@@ -458,7 +458,75 @@ int firstAidKit()
 ЦЕНА: 50 золота
 )Rat";
 
-	printRaw(textGlobal, 2,3, 1, LightRed, Black, 0, 30); //TODO разобраться с форматированием по центру от указанного параметра. Заполнить ячейки.
+	printRaw(printСell, 7, 3, 1, LightRed, Black, 0, 30);
 	return 0;
 }
 
+void printBow(int x = 85, int y = 19, int textColor = LightMagenta)
+{
+	string printСell = R"Rat(
+|  \__/  |
+|  |__|  |
+|_/   \__|)Rat";
+
+	printRaw(printСell, x, y, 0, textColor, Black);
+
+	SetColor(textColor, Black);
+	gotoxy(x + 1, y);
+	cout << "_";
+	gotoxy(x + 8, y);
+	cout << "_";
+	SetColor();
+}
+
+int accessoriesRat()
+{
+	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
+	cout << "БАНТИК";
+
+	gotoxy(7, 10, 16, 30); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 10 золота";
+
+	printBow(13, 5, Brown);
+
+	return 0;
+}
+void accessoriesRat(int colorItem = LightMagenta)
+{
+	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
+	cout << "БАНТИК";
+
+	gotoxy(7, 10, 16, 30); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 10 золота";
+
+	printBow(13, 5, colorItem);
+
+}
+
+int colorSelection()
+{
+	Menu mP;
+	vector<string> mPlayer = { "       Розовый", "       Красный", "       Зеленый", "       Желтый","        Синий" };
+	int color = Brown;
+	int num = mP.select_vertical(mPlayer, 7,14) + 1;
+	switch (num)
+	{
+	case 1:
+		color = LightMagenta;
+		break;
+	case 2:
+		color = Red;
+		break;
+	case 3:
+		color = Green;
+		break;
+	case 4:
+		color = Yellow;
+		break;
+	case 5:
+		color = Blue;
+		break;
+	}
+	accessoriesRat(color);
+	return color;
+}
