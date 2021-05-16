@@ -30,7 +30,7 @@ void SetColor(int text = 7, int background = 0)
 void gotoxy(int x, int y, int sizeLen = 0, int sizeHeight = 100) //При наличии размера строки выполняется форматирование по центру
 {
 	if (sizeLen)
-		x += (x + sizeHeight - sizeLen) / 2;
+		x = (x + sizeHeight - sizeLen) / 2;
 
 	COORD coord;
 	coord.X = x;
