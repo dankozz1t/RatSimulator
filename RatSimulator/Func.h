@@ -49,30 +49,23 @@ void ShowConsoleCursor(bool showFlag) // false - Убийца курсора
 	SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-void printFrame(int height = 25, int width = 80, int posX = 10, int posY = 5) //Рисовка рамки по заданным размерам и позиции
+
+void printFrame(int height = 25, int width = 80, int posX = 10, int posY = 5) //Рисовка рамки по заданым параметрам
 {
-	for (int y = 0; y < height; y++)
+	for (int y = posY; y < posY + height; y++)
 	{
-		int t = 0;
-		gotoxy(posX, posY);
-		for (int x = 0; x < width; x++)
+		for (int x = posX; x < posX + width; x++)
 		{
-			gotoxy(posX, posY);
-			bool angle = (x == 0 && y == 0) || (x == 0 && y == height - 1) || (y == 0 && x == width - 1) || (y == height - 1 && x == width - 1);
+			gotoxy(x, y);
+			bool angle = (x == posX && y == posY) || (x == posX && y == posY + height - 1) || 
+				(y == posY && x == posX + width - 1) || (y == posY + height - 1 && x == posX + width - 1);
 			if (angle)
 				cout << "#";
-			else if (y == 0 || y == height - 1)
+			else if (y == posY || y == posY + height - 1)
 				cout << "-";
-			else if (x == 0 || x == width - 1)
+			else if (x == posX || x == posX + width - 1)
 				cout << "|";
-			else
-				cout << " ";
-
-			posX++; t++;
 		}
-		posX -= t;
-		cout << endl;
-		posY++;
 	}
 }
 
@@ -106,7 +99,7 @@ int findMaxString(vector<string> a) { // Возвращает длину сам�
 }
 
 //Функция посимвольно печаетает с возможностью форматирования по центру, изменениям цвета и задержкой(анимацией)
-void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolor = 7, int backgroundСolor = 0, int sleep = 0,int sizeHeight = 100)
+void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolor = 7, int backgroundСolor = 0, int sleep = 0, int sizeHeight = 100)
 {
 	int y = 0, countChar = -1, symbolNow = 0;
 	if (!(textСolor == 7 && backgroundСolor == 0)) SetColor(textСolor, backgroundСolor);
@@ -139,31 +132,31 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 	SetColor();
 }
 
-int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)() = NULL, int pos=0, int textСolor = LightCyan, int textСolorNOW = Blue)
+int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)() = NULL, int pos = 0, int textСolor = LightCyan, int textСolorNOW = Blue)
 {
+	SetColor(textСolor, Black);
+	printFrame(16, 30, 3, 3);
+	printFrame(16, 30, 35, 3);
+	printFrame(16, 30, 67, 3);
+	printCell();
+	if (printCell2) printCell2();
+	if (printCell3) printCell3();
 	char c = 0;
-	while (c != Enter)
-	{
+
+	int xOs = 3;
+	while (c != Enter) {
 		for (int i = 0; i < 2; i++)
 		{
 			SetColor(textСolor, Black);
-	
-			printFrame(16, 30, 3, 3);
-			printFrame(16, 30, 35, 3);
-			printFrame(16, 30, 67, 3);
+
+			printFrame(16, 30, xOs, 3);
 
 			SetColor(textСolorNOW, Black);
-			int xOs;
-			if (pos == 0 || pos == 3) //Если первая ячейка (1 и 2 страницы)
-				xOs = 3;
-			else if (pos == 1 || pos == 4) //Если вторая
-				xOs = 35;
-			else //Если третья
-				xOs = 67;
+			     //Если первая ячейка      //Если вторая 
+			xOs = (pos == 0 || pos == 3 || pos == 1 || pos == 4) ? ((pos == 0 || pos == 3) ? 3 : 35) : 67; //Тернарные имба
+
 			printFrame(16, 30, xOs, 3);
-			printCell(); //Принт первой ячейки
-			if(printCell2) printCell2();  //Принт второй
-			if (printCell3) printCell3();  //Принт третьей
+
 		}
 
 		c = _getch();
@@ -190,10 +183,13 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 			return pos = -1;
 			break;
 		case Down:
+			if(pos >= 3)
+
 			return pos = 3;
 			break;
 		case Enter:
 			return pos;
+
 		}
 	}
 	return pos;
