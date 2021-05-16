@@ -29,10 +29,17 @@ struct Rat
 	int health;
 };
 
+struct Shop
+{
+	bool bow = false;
+	int colorBow;
+};
+
 struct Account
 {
 	Rat rat;
 	Date date;
+	Shop shop;
 	int time = 0;
 	int FeedingAttempts;
 };
