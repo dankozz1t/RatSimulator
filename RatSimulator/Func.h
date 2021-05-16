@@ -183,8 +183,6 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 			return pos = -1;
 			break;
 		case Down:
-			if(pos >= 3)
-
 			return pos = 3;
 			break;
 		case Enter:
