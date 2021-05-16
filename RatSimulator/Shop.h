@@ -1,8 +1,6 @@
 ﻿#pragma once
 
 
-
-
 void careRat(Account* account, int acc)
 {
 	system("cls");
@@ -12,8 +10,6 @@ void careRat(Account* account, int acc)
 )Rat";
 	printRaw(signboard, 0, 0, 1, Cyan, Black);
 
-	//gotoxy(80,26); SetColor(Yellow, Black);
-	//cout << "Мое золото: " << account[acc].rat.gold << endl;
 	gotoxy(80, 26); SetColor(Yellow, Black);
 	cout << "Мое золото: " << account[acc].rat.gold << endl;
 	int item = menuShop(&firstAidKit);
@@ -50,23 +46,75 @@ void careRat(Account* account, int acc)
 
 		break;
 	case 2:
-		return;
+		break;
 	}
 }
 
 
-void accessories()
+void accessories(Account* account, int acc)
 {
 	system("cls");
-	SetColor(Magenta, Black);
-	printFrame(25, 88, 6, 1);
+
+	string signboard = R"Rat(
+АКСЕССУАРЫ
+)Rat";
+	printRaw(signboard, 0, 0, 1, Cyan, Black);
+	int ds = Blue;
+	gotoxy(80, 26); SetColor(Yellow, Black);
+	cout << "Мое золото: " << account[acc].rat.gold << endl;
+	int item = menuShop(&accessoriesRat);
+	while (item != 0)
+	{
+		gotoxy(0, 23, 34);
+		SetColor(Red, Black);
+		cout << "Прилавок пустой!! Ты что слепая??" << endl;
+		system("pause>nul");
+		system("cls");
+		gotoxy(80, 26); SetColor(Yellow, Black);
+		cout << "Мое золото: " << account[acc].rat.gold << endl;
+		item = menuShop(&accessoriesRat,item);
+	}
+	
+	int color = Brown;
+	switch (item)
+	{
+	case 0: //Бантик
+		color =colorSelection();
+		break;
+	default:
+		break;
+	}
+	
+
+	Menu sP;
+	vector<string> shopPointer = { "        Купить", "        Назад" };
+
+	int num = sP.select_vertical(shopPointer, 39, 23) + 1;
+
+	switch (num)
+	{
+	case 1:
+		system("cls");
+		if (item == 0 && account[acc].rat.gold >= 50) //Бантик
+		{
+			purchase(account, acc, true);
+			account[acc].rat.gold -= 50;
+			account[acc].shop.bow = true;
+			account[acc].shop.colorBow = color;
+
+		}
+		else
+			purchase(account, acc, false);
 
 
-	SetColor(Green, Black); gotoxy(30, 27); system("pause");
+		break;
+	case 2:
+		accessories(account, acc);
+	}
 }
 
 
-void interior()
+void interior(Account* account, int acc)
 {
 	system("cls");
 	SetColor(Magenta, Black);
@@ -108,10 +156,10 @@ void shop(Account* account, int acc)
 			careRat(account, acc);
 			break;
 		case 2:
-			accessories();
+			accessories(account, acc);
 			break;
 		case 3:
-			interior();
+			interior(account, acc);
 			break;
 		case 4:
 			return;
