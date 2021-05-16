@@ -22,7 +22,7 @@ void careRat(Account* account, int acc)
 		system("cls");
 		gotoxy(80, 26); SetColor(Yellow, Black);
 		cout << "Мое золото: " << account[acc].rat.gold << endl;
-		item = menuShop(&firstAidKit, NULL, item);
+		item = menuShop(&firstAidKit, NULL, NULL, item);
 	}
 
 	Menu sP;
@@ -62,17 +62,28 @@ void accessories(Account* account, int acc)
 	int ds = Blue;
 	gotoxy(80, 26); SetColor(Yellow, Black);
 	cout << "Мое золото: " << account[acc].rat.gold << endl;
-	int item = menuShop(&bowRat, &headsetRat);
-	while (item > 1)
+
+	int item = -1;
+	while (item == -1)
 	{
-		gotoxy(0, 23, 34);
-		SetColor(Red, Black);
-		cout << "Прилавок пустой!! Ты что слепая??" << endl;
-		system("pause>nul");
-		system("cls");
-		gotoxy(80, 26); SetColor(Yellow, Black);
-		cout << "Мое золото: " << account[acc].rat.gold << endl;
-		item = menuShop(&bowRat, &headsetRat, item);
+		item = menuShop(&bowRat, &headsetRat, &glassesRat);
+		while (item > 2 && item < 5) // Страница 2
+		{
+			system("cls");
+			item = menuShop(&collarRat, NULL, NULL, item);
+			while (item > 3)
+			{
+				gotoxy(0, 23, 34);
+				SetColor(Red, Black);
+				cout << "Прилавок пустой!! Ты что слепая??" << endl;
+				system("pause>nul");
+				system("cls");
+				gotoxy(80, 26); SetColor(Yellow, Black);
+				cout << "Мое золото: " << account[acc].rat.gold << endl;
+				item = menuShop(&collarRat, NULL, NULL, item);
+			}
+			if (item == 3) break;
+		}
 	}
 
 	int color = Brown;
@@ -82,7 +93,14 @@ void accessories(Account* account, int acc)
 		color = colorSelection(&bowRat, color, 7, 15);
 		break;
 	case 1: //Наушники
-		color = colorSelection(&headsetRat, color, 38, 15);
+		color = colorSelection(&headsetRat, color, 39, 15);
+		break;
+	case 2: //Очки
+		color = colorSelection(&glassesRat, color, 71, 15);
+		break;
+	case 3: //Ошейник
+		color = colorSelection(&collarRat, color, 7, 15);
+		break;
 	default:
 		break;
 	}
@@ -100,7 +118,7 @@ void accessories(Account* account, int acc)
 		if (item == 0 && account[acc].rat.gold >= 7) //Бантик
 		{
 			purchase(account, acc, true);
-			account[acc].rat.gold -= 50;
+			account[acc].rat.gold -= 7;
 			account[acc].shop.bow = true;
 			account[acc].shop.colorBow = color;
 
@@ -108,9 +126,23 @@ void accessories(Account* account, int acc)
 		else if (item == 1 && account[acc].rat.gold >= 10) //Наушники
 		{
 			purchase(account, acc, true);
-			account[acc].rat.gold -= 50;
+			account[acc].rat.gold -= 10;
 			account[acc].shop.headphones = true;
 			account[acc].shop.colorHeadphones = color;
+		}
+		else if (item == 2 && account[acc].rat.gold >= 12) //Очки
+		{
+			purchase(account, acc, true);
+			account[acc].rat.gold -= 12;
+			account[acc].shop.glasses = true;
+			account[acc].shop.colorGlasses = color;
+		}
+		else if (item == 3 && account[acc].rat.gold >= 5) //Очки
+		{
+			purchase(account, acc, true);
+			account[acc].rat.gold -= 5;
+			account[acc].shop.collar = true;
+			account[acc].shop.colorCollar = color;
 		}
 		else
 			purchase(account, acc, false);

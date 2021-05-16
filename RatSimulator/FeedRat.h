@@ -1,5 +1,7 @@
 ﻿#pragma once
+
 #include"Func.h"
+#include"Music.h"
 
 
 void printPacman()
@@ -124,6 +126,7 @@ void feedRat(Account* account, int acc)
 				cout << "Хапнул еды: " << spaceCount << endl;
 
 				spaceGet = _getch();
+				playBiteSound();
 				Sleep(50);
 
 				if (spaceGet == 32)

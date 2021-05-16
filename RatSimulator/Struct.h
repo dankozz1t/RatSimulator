@@ -36,6 +36,12 @@ struct Shop
 
 	bool headphones = false;
 	int colorHeadphones;
+
+	bool glasses = false;
+	int colorGlasses;
+
+	bool collar = false;
+	int colorCollar;
 };
 
 struct Account

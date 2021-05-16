@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -147,6 +148,7 @@
     <ClInclude Include="Func.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Music.h" />
     <ClInclude Include="RatSimulator.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Struct.h" />

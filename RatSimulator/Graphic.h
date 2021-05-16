@@ -194,6 +194,7 @@ void printRAT(Account* account, int acc, char eyes = 'O')  //Состояние 
 		ratArt.append(" \\___     |  \n");
 	else
 		ratArt.append(" \\___/    |  \n");
+	ratArt.append(" |        |  \n");
 	ratArt.append(" |        |  ");
 
 	printRaw(ratArt, 83, 17);
@@ -392,7 +393,7 @@ void purchase(Account* account, int acc, bool acquisition)
 			system("cls");
 
 			string textGlobal = R"Rat(
-Вы очень понравили продавцу, он рассказал о вас другим крысам
+Вы очень понравились продавцу, он рассказал о вас другим крысам
 - вы получили +25 рейтинга
 )Rat";
 			printRaw(textGlobal, 0, 13, 1, LightRed, Black, 50);
@@ -521,7 +522,7 @@ _
 | \ 
 |  ) 
 |_/)Rat";
-	printRaw(printСell2, x+14, y, 0, textColor, Black);
+	printRaw(printСell2, x + 14, y, 0, textColor, Black);
 }
 
 int headsetRat() //В меню
@@ -573,6 +574,82 @@ int colorSelection(int (*printCell)(int), int color, int x = 7, int y = 15)
 	printCell(color);
 	return color;
 }
+
+int printGlasses(int x = 81, int y = 17, int textColor = LightCyan, char eyes = 'O')
+{
+	string ratArt = R"Rat(
+.__. .__.
+|_)Rat";
+	ratArt.push_back(eyes);
+	ratArt.append("|-|");
+	ratArt.push_back(eyes);
+	ratArt.append("_|- \n");
+	printRaw(ratArt, x, y, 0, textColor);
+	return 0;
+}
+
+//TODO обавить тату, очки, некст страницу!
+int glassesRat()
+{
+
+	gotoxy(79, 4); SetColor(Red, Black);
+	cout << "Очки";
+
+	gotoxy(74, 11); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 12 золота";
+
+	printGlasses(77, 6, Brown,'_');
+
+	return 0;
+}
+
+int glassesRat(int colorItem = Brown)
+{
+
+	gotoxy(79, 4); SetColor(Red, Black);
+	cout << "Очки";
+
+	gotoxy(74, 11); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 12 золота";
+
+	printGlasses(77, 6, colorItem, '_');
+
+	return 0;
+}
+
+void printCollar(int x = 83, int y = 26, int textColor = Brown)
+{
+	string printСell = R"Rat(
+########)Rat";
+
+	printRaw(printСell, x, y, 0, textColor, Black);
+}
+
+int collarRat()
+{
+	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
+	cout << "Ошейник";
+
+	gotoxy(7, 11, 16, 30); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 5  золота";
+
+	printCollar(14, 6, Brown);
+	return 0;
+}
+
+int collarRat(int colorItem = Brown)
+{
+	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
+	cout << "Ошейник";
+
+	gotoxy(7, 11, 16, 30); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 5  золота";
+
+	printCollar(14, 6, colorItem);
+	return 0;
+}
+
+
 
 //string ratArt = R"Rat(
 // ___      ___  

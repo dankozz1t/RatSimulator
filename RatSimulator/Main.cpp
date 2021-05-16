@@ -21,6 +21,12 @@ int main()
 	system("mode con cols=100 lines=30");
 	ShowConsoleCursor(false);
 
+	//while (true)
+	//{
+	//	int c = _getch();
+	//	cout << c << endl;
+	//}
+
 	//char a = 0; //asci
 	//for (int i = 0; i < 255; i++)
 	//{

@@ -9,6 +9,7 @@
 #include"CowAndBull.h"
 #include"FeedRat.h"
 #include"Shop.h"
+#include"Music.h"
 
 struct RatSimulator
 {
@@ -198,10 +199,22 @@ struct RatSimulator
 			else
 				printRAT(account, acc, 'X');
 			if (account[acc].shop.bow)
-				printBow(85,19,account[acc].shop.colorBow);
+				printBow(85, 19, account[acc].shop.colorBow);
 
 			if (account[acc].shop.headphones)
-			printHeadphones(81,17,account[acc].shop.headphones);
+				printHeadphones(81, 17, account[acc].shop.headphones);
+
+			if (account[acc].shop.glasses)
+			{
+				if ((!account[acc].rat.health == 0))
+					printGlasses(84, 21, account[acc].shop.colorGlasses);
+				else
+					printGlasses(84,21, account[acc].shop.colorGlasses, 'X');
+			}
+
+			if (account[acc].shop.collar)
+				printCollar(85, 26, account[acc].shop.colorCollar);
+
 
 			printCharacteristics(account, acc);
 

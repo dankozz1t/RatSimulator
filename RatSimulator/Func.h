@@ -139,7 +139,7 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 	SetColor();
 }
 
-int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int pos=0, int textСolor = LightCyan, int textСolorNOW = Blue)
+int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)() = NULL, int pos=0, int textСolor = LightCyan, int textСolorNOW = Blue)
 {
 	char c = 0;
 	while (c != Enter)
@@ -153,12 +153,13 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int pos=0, int text
 			printFrame(16, 30, 67, 3);
 
 			SetColor(textСolorNOW, Black);
-			int xOs = (pos == 0 || pos == 1) ? ((pos == 0) ? 3 : 35) : 67; //Тернарные имба
+			int xOs = (pos == 0 || pos ==3 || pos == 1 || pos ==4) ? ((pos == 0 || pos ==3) ? 3 : 35) : 67; //Тернарные имба
 			printFrame(16, 30, xOs, 3);
 			printCell();
-			printCell2();
-
+			if(printCell2) printCell2();
+			if (printCell3) printCell3();
 		}
+
 		c = _getch();
 
 		switch (c)
@@ -166,15 +167,27 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int pos=0, int text
 		case Left:
 			if (pos == 0)
 				pos = 2;
+			else if (pos == 3)
+				pos = 5;
 			else
 				pos--;
 			break;
 		case Right:
 			if (pos == 2)
 				pos = 0;
+			else if (pos == 5)
+				pos = 3;
 			else
 				pos++;
 			break;
+		case Up:
+			return pos = -1;
+			break;
+		case Down:
+			return pos = 3;
+			break;
+		case Enter:
+			return pos;
 		}
 	}
 	return pos;
