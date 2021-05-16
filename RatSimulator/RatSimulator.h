@@ -202,7 +202,7 @@ struct RatSimulator
 				printBow(85, 19, account[acc].shop.colorBow);
 
 			if (account[acc].shop.headphones)
-				printHeadphones(81, 17, account[acc].shop.headphones);
+				printHeadphones(81, 17, account[acc].shop.colorHeadphones);
 
 			if (account[acc].shop.glasses)
 			{
