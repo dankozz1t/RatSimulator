@@ -337,6 +337,7 @@ void printShopRat()
 
 void purchase(Account* account, int acc, bool acquisition)
 {
+	playCoins();
 	printShopRat();
 	string signboard = R"Rat(
 КРЫСИНЫЙ МАГАЗИН ПАЦЮЧОК
@@ -392,6 +393,7 @@ void purchase(Account* account, int acc, bool acquisition)
 
 			system("cls");
 
+			playPositiveSound();
 			string textGlobal = R"Rat(
 Вы очень понравились продавцу, он рассказал о вас другим крысам
 - вы получили +25 рейтинга
@@ -428,7 +430,7 @@ void purchase(Account* account, int acc, bool acquisition)
 
 
 			system("cls");
-
+			playNegativeSound();
 			string textGlobal = R"Rat(
 Продавец написал на вас заявление в крысиный патруль
 - вы получили -25 рейтинга

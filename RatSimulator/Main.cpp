@@ -11,7 +11,8 @@
 //#include<iomanip> //setw
 //#include<typeinfo>
 using namespace std;
-  
+
+
 int main()
  {
 	setlocale(0, "");
@@ -20,20 +21,6 @@ int main()
 	SetConsoleTitleA("RatSimulator"); 
 	system("mode con cols=100 lines=30");
 	ShowConsoleCursor(false);
-
-	//while (true)
-	//{
-	//	int c = _getch();
-	//	cout << c << endl;
-	//}
-
-	//char a = 0; //asci
-	//for (int i = 0; i < 255; i++)
-	//{
-	//	cout <<"№ " << i <<" cod: " << (int)a << " symb: " << a << endl;;
-	//	a++;
-	//}
-	//system("pause");
 
 
 	RatSimulator start;

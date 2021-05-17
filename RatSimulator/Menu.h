@@ -45,12 +45,15 @@ struct Menu
 			case 72:
 				if (pos > 0)
 					pos--;
+				playButtonSwitchSound();
 				break;
 			case 80:
 				if (pos < menu.size() - 1)
 					pos++;
+				playButtonSwitchSound();
 				break;
 			case 13:
+				playMenuYes();
 				break;
 			default:
 				break;

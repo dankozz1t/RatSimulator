@@ -173,6 +173,7 @@ void feedRat(Account* account, int acc)
 
 				system("cls");
 
+				playNegativeSound();
 				string textGlobal = R"Rat(
 Вы долго пытались оправдаться, но все улики против вас
 - вы потратили всё золото что бы откупиться

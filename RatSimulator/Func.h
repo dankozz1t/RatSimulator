@@ -102,14 +102,18 @@ int findMaxString(vector<string> a) { // Возвращает длину сам�
 //Функция посимвольно печаетает с возможностью форматирования по центру, изменениям цвета и задержкой(анимацией)
 void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolor = 7, int backgroundСolor = 0, int sleep = 0, int sizeHeight = 100)
 {
+	mciSend(L"open \"Resources/Klava.mp3\" type mpegvideo alias music");
 	int y = 0, countChar = -1, symbolNow = 0;
 	if (!(textСolor == 7 && backgroundСolor == 0)) SetColor(textСolor, backgroundСolor);
 
-	for (int i = 0; i < raw.size(); i++) {
-
+	for (int i = 0; i < raw.size(); i++)
+	{
 		cout << raw[i];
 		if (sleep)
+		{
+			mciSend(L"play music repeat");
 			Sleep(sleep);
+		}
 		if (raw[i] == '\n') {
 			if (centerFormatting)
 			{
@@ -130,6 +134,7 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 			countChar++;
 		}
 	}
+	mciSend(L"close music");
 	SetColor();
 }
 
