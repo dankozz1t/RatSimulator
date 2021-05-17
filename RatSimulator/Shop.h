@@ -275,6 +275,7 @@ void shop(Account* account, int acc)
 	}
 	else
 	{
+		playRozbiinik();
 		string ratArt = R"Rat(
 - Ты кто такая? Крыса )Rat";
 		ratArt.append(account[acc].rat.name);

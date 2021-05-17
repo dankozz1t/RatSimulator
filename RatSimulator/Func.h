@@ -5,6 +5,7 @@
 #include<Windows.h>
 #include<typeinfo>
 #include<conio.h> //getch
+#include"Music.h"
 
 using namespace std;
 
@@ -57,7 +58,7 @@ void printFrame(int height = 25, int width = 80, int posX = 10, int posY = 5) //
 		for (int x = posX; x < posX + width; x++)
 		{
 			gotoxy(x, y);
-			bool angle = (x == posX && y == posY) || (x == posX && y == posY + height - 1) || 
+			bool angle = (x == posX && y == posY) || (x == posX && y == posY + height - 1) ||
 				(y == posY && x == posX + width - 1) || (y == posY + height - 1 && x == posX + width - 1);
 			if (angle)
 				cout << "#";
@@ -152,7 +153,7 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 			printFrame(16, 30, xOs, 3);
 
 			SetColor(textСolorNOW, Black);
-	
+
 			if (pos == 0 || pos == 3 || pos == 1 || pos == 4) //Если Первая или вторая ячейка
 			{
 				if (pos == 0 || pos == 3) xOs = 3; //Первая ячейка
@@ -169,6 +170,7 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 		switch (c)
 		{
 		case Left:
+			playMenu();
 			if (pos == 0)
 				pos = 2;
 			else if (pos == 3)
@@ -177,6 +179,7 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 				pos--;
 			break;
 		case Right:
+			playMenu();
 			if (pos == 2)
 				pos = 0;
 			else if (pos == 5)
@@ -184,14 +187,24 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 			else
 				pos++;
 			break;
-		case Up:
-			if (pos > 2) return pos = 0; //Если есть вторая страница, отрывать первую
+		case Up://Если есть вторая страница, отрывать первую
+			if (pos > 2)
+			{
+				playMenu();
+				return pos = 0;
+			}
+			else playNope();
 			break;
 		case Down:
-			if(printCell3) //Если существует третий прилавок, открыть вторую страницу
-			if (pos < 3) return pos = 3;
+			if (printCell3) //Если существует третий прилавок, открыть вторую страницу
+			{
+				playMenu();
+				if (pos < 3) return pos = 3;
+			}
+			else playNope();
 			break;
 		case Enter:
+			playMenuYes();
 			return pos;
 
 		}

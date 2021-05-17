@@ -103,6 +103,7 @@ struct RatSimulator
 					int modeSize = 0;
 					if (bullsAndCows(modeSize)) //Бонусы за исход игры
 					{
+						playCoins();
 						switch (modeSize)
 						{
 						case 3:

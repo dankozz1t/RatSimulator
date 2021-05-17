@@ -156,6 +156,7 @@ void feedRat(Account* account, int acc)
 			}
 			else //ну давай-давай, нападай
 			{
+				playPoliceSiren();
 				Sleep(2000);
 				system("cls");
 

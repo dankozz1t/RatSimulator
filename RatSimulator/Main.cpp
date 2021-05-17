@@ -38,5 +38,5 @@ int main()
 
 	RatSimulator start;
 	start.menu();
-	SetColor(Black, Black);
+	
 }

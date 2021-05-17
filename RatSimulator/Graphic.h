@@ -4,7 +4,7 @@
 #include"Menu.h"
 #include"Timer.h"
 #include"Struct.h"
-
+#include"Music.h"
 void printScreensaver() //Заставка 
 {
 	int t = 10;
@@ -401,6 +401,7 @@ void purchase(Account* account, int acc, bool acquisition)
 		}
 		else
 		{
+			playLetMeDay();
 			system("cls");
 			printShopRat();
 			string signboard = R"Rat(
