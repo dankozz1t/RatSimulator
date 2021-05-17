@@ -42,6 +42,12 @@ struct Shop
 
 	bool collar = false;
 	int colorCollar;
+
+	bool armchair = false;
+	int colorArmchair;
+
+	bool lamp = false;
+	int colorLamp;
 };
 
 struct Account

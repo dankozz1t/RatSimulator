@@ -170,7 +170,7 @@ void interior(Account* account, int acc, int item = 0)
 
 	while (item >= 0 && item <= 3) //Запуск
 	{
-		item = menuShop(&bowRat, &headsetRat, NULL, item);
+		item = menuShop(&armchairRat, &lampRat, NULL, item);
 		if (item >= 0 && item <= 1) //Если 1 или 2 ячейка
 		{
 			break;
@@ -189,11 +189,11 @@ void interior(Account* account, int acc, int item = 0)
 	int color = Brown;
 	switch (item)
 	{
-	case 0: //Бантик
-		color = colorSelection(&bowRat, color, 7, 15);
+	case 0: //Кресло
+		color = colorSelection(&armchairRat, color, 7, 15);
 		break;
-	case 1: //Наушники
-		color = colorSelection(&headsetRat, color, 39, 15);
+	case 1: //Торшер
+		color = colorSelection(&lampRat, color, 39, 15);
 		break;
 	}
 
@@ -206,20 +206,20 @@ void interior(Account* account, int acc, int item = 0)
 	{
 	case 1:
 		system("cls");
-		if (item == 0 && account[acc].rat.gold >= 7) //Бантик
+		if (item == 0 && account[acc].rat.gold >= 20) //Кресло
 		{
 			purchase(account, acc, true);
-			account[acc].rat.gold -= 7;
-			account[acc].shop.bow = true;
-			account[acc].shop.colorBow = color;
+			account[acc].rat.gold -= 20;
+			account[acc].shop.armchair = true;
+			account[acc].shop.colorArmchair = color;
 			return;
 		}
-		else if (item == 1 && account[acc].rat.gold >= 10) //Наушники
+		else if (item == 1 && account[acc].rat.gold >= 15) //Торшер
 		{
 			purchase(account, acc, true);
-			account[acc].rat.gold -= 10;
-			account[acc].shop.headphones = true;
-			account[acc].shop.colorHeadphones = color;
+			account[acc].rat.gold -= 15;
+			account[acc].shop.lamp = true;
+			account[acc].shop.colorLamp = color;
 			return;
 		}
 		else

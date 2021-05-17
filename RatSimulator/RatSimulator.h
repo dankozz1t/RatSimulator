@@ -209,12 +209,18 @@ struct RatSimulator
 				if ((!account[acc].rat.health == 0))
 					printGlasses(84, 21, account[acc].shop.colorGlasses);
 				else
-					printGlasses(84,21, account[acc].shop.colorGlasses, 'X');
+					printGlasses(84, 21, account[acc].shop.colorGlasses, 'X');
 			}
 
 			if (account[acc].shop.collar)
 				printCollar(85, 26, account[acc].shop.colorCollar);
 
+			if (account[acc].shop.armchair)
+				printArmchair(9, 12, account[acc].shop.colorArmchair);
+
+
+			if (account[acc].shop.lamp)
+				printLamp(60, 10, account[acc].shop.colorLamp);
 
 			printCharacteristics(account, acc);
 

@@ -538,7 +538,7 @@ int headsetRat() //В меню
 	return 0;
 }
 
-int headsetRat(int colorItem = Brown) //В меню
+int headsetRat(int colorItem = Brown)
 {
 	gotoxy(46, 4); SetColor(Red, Black);
 	cout << "НАУШНИКИ";
@@ -553,23 +553,43 @@ int headsetRat(int colorItem = Brown) //В меню
 
 int colorSelection(int (*printCell)(int), int color, int x = 7, int y = 15)
 {
-	Menu mP;
-	vector<string> mPlayer = { "       Розовый", "       Красный", "       Зеленый", "        Синий" };
-	int num = mP.select_vertical(mPlayer, x, y) + 1;
-	switch (num)
+	int num = 0, num2 = 4;
+	while (num == 0)
 	{
-	case 1:
-		color = LightMagenta;
-		break;
-	case 2:
-		color = LightRed;
-		break;
-	case 3:
-		color = LightGreen;
-		break;
-	case 4:
-		color = LightBlue;
-		break;
+		Menu mP;
+		vector<string> mPlayer = { "       Розовый", "       Зеленый", "        Синий", "         Еще" };
+		num = mP.select_vertical(mPlayer, x, y) + 1;
+
+		switch (num)
+		{
+		case 1:
+			color = LightMagenta;
+			break;
+		case 2:
+			color = LightGreen;
+			break;
+		case 3:
+			color = LightBlue;
+			break;
+		case 4:
+			Menu mP2;
+			vector<string> mPlayer = { "       Желтный", "       Голубой", "       Красный", "        Назад" };
+			num2 = mP2.select_vertical(mPlayer, x, y) + 1;
+			switch (num2)
+			{
+			case 1:
+				color = Yellow;
+				break;
+			case 2:
+				color = LightCyan;
+				break;
+			case 3:
+				color = LightRed;
+				break;
+			case 4: num = 0;
+			}
+			break;
+		}
 	}
 	printCell(color);
 	return color;
@@ -588,17 +608,15 @@ int printGlasses(int x = 81, int y = 17, int textColor = LightCyan, char eyes = 
 	return 0;
 }
 
-//TODO обавить тату, очки, некст страницу!
-int glassesRat()
+int glassesRat() //В меню
 {
-
 	gotoxy(79, 4); SetColor(Red, Black);
 	cout << "Очки";
 
 	gotoxy(74, 11); SetColor(Yellow, Black);
 	cout << "ЦЕНА: 12 золота";
 
-	printGlasses(77, 6, Brown,'_');
+	printGlasses(77, 6, Brown, '_');
 
 	return 0;
 }
@@ -625,7 +643,7 @@ void printCollar(int x = 83, int y = 26, int textColor = Brown)
 	printRaw(printСell, x, y, 0, textColor, Black);
 }
 
-int collarRat()
+int collarRat() //В меню
 {
 	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
 	cout << "Ошейник";
@@ -649,25 +667,90 @@ int collarRat(int colorItem = Brown)
 	return 0;
 }
 
+void printArmchair(int x = 9, int y = 12, int textColor = Brown)
+{
+	string printСell = R"Rat(
+     `________________`
+    _`                `_.
+   |.-                  |
+   |..                  |
+  _|...`            `...|_
+ /     \............/   ..\
+ \_.:\_ :         .: _/` _/
+   |-  \:          :/   |
+   |    \........../    |
+   |    :          :    |
+   :____:__________:____:
+    :_:             :_:  )Rat";
+
+	printRaw(printСell, x, y, 0, textColor, Black);
+}
+int armchairRat() //В меню
+{
+	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
+	cout << "Кресло";
+
+	gotoxy(7, 19, 16, 30); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 20 золота";
+
+	printArmchair(4, 5, Brown);
+	return 0;
+}
+
+int armchairRat(int colorItem = Brown)
+{
+	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
+	cout << "Кресло";
+
+	gotoxy(7, 19, 16, 30); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 20 золота";
+
+	printArmchair(4, 5, colorItem);
+	return 0;
+}
 
 
-//string ratArt = R"Rat(
-// ___      ___  
-///   \    /   \ 
-//|    \__/    | 
-//|            | 
-//\__        __/
-//  / )Rat";
-//ratArt.push_back(eyes);
-//ratArt.append("   ");
-//ratArt.push_back(eyes);
-//ratArt.append(" |  \n");
-//ratArt.append("@         |  \n");
-//
-//if (eyes == 'X')
-//ratArt.append(" \\___     |  \n");
-//else
-//ratArt.append(" \\___/    |  \n");
-//ratArt.append(" |        |  ");
-//
-//printRaw(ratArt, 83, 17);
+
+void printLamp(int x = 60, int y = 10, int textColor = Brown)
+{
+	string printСell = R"Rat(
+     ____________ 
+    /``          \  
+   :`   ``        : 
+   ::-   ```     `.: 
+   /`     `       \ 
+   |_____:__:_____| 
+         `||`      
+          ||       
+          ||       
+          ||          
+          ||          
+          ||      
+      .___||___.  
+      |::::::::|)Rat";
+
+	printRaw(printСell, x, y, 0, textColor, Black);
+}
+int lampRat() //В меню
+{
+	printLamp(39, 3, Brown);
+	gotoxy(47, 4); SetColor(Red, Black);
+	cout << "Торшер";
+
+	gotoxy(42, 19); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 15 золота";
+
+	return 0;
+}
+
+int lampRat(int colorItem = Brown)
+{
+	printLamp(39, 3, colorItem);
+	gotoxy(47, 4); SetColor(Red, Black);
+	cout << "Торшер";
+
+	gotoxy(42, 19); SetColor(Yellow, Black);
+	cout << "ЦЕНА: 15 золота";
+
+	return 0;
+}
