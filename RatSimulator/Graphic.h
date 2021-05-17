@@ -712,7 +712,7 @@ int armchairRat(int colorItem = Brown)
 
 
 
-void printLamp(int x = 60, int y = 10, int textColor = Brown)
+void printLamp(int x = 59, int y = 10, int textColor = Brown)
 {
 	string printСell = R"Rat(
      ____________ 
@@ -721,12 +721,12 @@ void printLamp(int x = 60, int y = 10, int textColor = Brown)
    ::-   ```     `.: 
    /`     `       \ 
    |_____:__:_____| 
-         `||`      
-          ||       
-          ||       
+         `||`         
+          ||          
+          ||           
+          ||           
           ||          
           ||          
-          ||      
       .___||___.  
       |::::::::|)Rat";
 

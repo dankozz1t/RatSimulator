@@ -221,7 +221,7 @@ struct RatSimulator
 
 
 			if (account[acc].shop.lamp)
-				printLamp(60, 10, account[acc].shop.colorLamp);
+				printLamp(59, 10, account[acc].shop.colorLamp);
 
 			printCharacteristics(account, acc);
 
