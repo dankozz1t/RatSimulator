@@ -152,14 +152,13 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 			printFrame(16, 30, xOs, 3);
 
 			SetColor(textСolorNOW, Black);
-			     //Если первая ячейка      //Если вторая 
-			//xOs = (pos == 0 || pos == 3 || pos == 1 || pos == 4) ? ((pos == 0 || pos == 3) ? 3 : 35) : 67; //Тернарные имба
-
-			if (pos == 0 || pos == 3 || pos == 1 || pos == 4) {
-				if (pos == 0 || pos == 3) xOs = 3;
-				else xOs = 35;
+	
+			if (pos == 0 || pos == 3 || pos == 1 || pos == 4) //Если Первая или вторая ячейка
+			{
+				if (pos == 0 || pos == 3) xOs = 3; //Первая ячейка
+				else xOs = 35; //Вторая ячейка
 			}
-			else xOs = 67;
+			else xOs = 67; //Третья
 
 			printFrame(16, 30, xOs, 3);
 
@@ -186,9 +185,10 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 				pos++;
 			break;
 		case Up:
-			if (pos > 2) return pos = 0;
+			if (pos > 2) return pos = 0; //Если есть вторая страница, отрывать первую
 			break;
 		case Down:
+			if(printCell3) //Если существует третий прилавок, открыть вторую страницу
 			if (pos < 3) return pos = 3;
 			break;
 		case Enter:

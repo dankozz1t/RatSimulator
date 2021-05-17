@@ -163,14 +163,109 @@ void accessories(Account* account, int acc, int item = 0)
 }
 
 
-void interior(Account* account, int acc)
+void interior(Account* account, int acc, int item = 0)
 {
 	system("cls");
-	SetColor(Magenta, Black);
-	printFrame(25, 88, 6, 1);
+
+	string signboard = R"Rat(
+ИНТЕРЬЕР
+)Rat";
+	printRaw(signboard, 0, 0, 1, Cyan, Black);
+	int ds = Blue;
+	gotoxy(80, 26); SetColor(Yellow, Black);
+	cout << "Мое золото: " << account[acc].rat.gold << endl;
+
+	while (item >= 0 && item <= 3)
+	{
+		item = menuShop(&bowRat, &headsetRat, NULL, item);
+		if (item >= 0 && item <= 1) //Запуск на первую страницу 
+		{
+			break;
+		}
+		else if (item == 2)//Пустые прилавки
+		{
+			gotoxy(0, 23, 34); SetColor(Red, Black);
+			cout << "Прилавок пустой!! Ты что слепая??" << endl;
+			system("pause>nul"); system("cls");
+
+			gotoxy(80, 26); SetColor(Yellow, Black);
+			cout << "Мое золото: " << account[acc].rat.gold << endl;
+		}
+	
+	}
+	//while (item >= 3 && item <= 5) // Страница 2 
+	//{
+	//	system("cls");
+	//	item = menuShop(&collarRat, NULL, NULL, item);
+
+	//	gotoxy(80, 26); SetColor(Yellow, Black);
+	//	cout << "Мое золото: " << account[acc].rat.gold << endl;
+
+	//	if (item == 0) //Если переход на 1 страницу
+	//	{
+	//		item = menuShop(&bowRat, &headsetRat, &glassesRat, item);
+	//	}
+	//	else if (item == 3)
+	//	{
+	//		break;
+	//	}
+	//	else //Пустые прилавки
+	//	{
+	//		gotoxy(0, 23, 34); SetColor(Red, Black);
+	//		cout << "Прилавок пустой!! Ты что слепая??" << endl;
+	//		system("pause>nul"); system("cls");
+
+	//		gotoxy(80, 26); SetColor(Yellow, Black);
+	//		cout << "Мое золото: " << account[acc].rat.gold << endl;
+	//		accessories(account, acc, item);
+	//		return;
+	//	}
+	//}
 
 
-	SetColor(Green, Black); gotoxy(30, 27); system("pause");
+	int color = Brown;
+	switch (item)
+	{
+	case 0: //Бантик
+		color = colorSelection(&bowRat, color, 7, 15);
+		break;
+	case 1: //Наушники
+		color = colorSelection(&headsetRat, color, 39, 15);
+		break;
+	}
+
+	Menu sP;
+	vector<string> shopPointer = { "        Купить", "        Назад" };
+
+	int num = sP.select_vertical(shopPointer, 39, 23) + 1;
+
+	switch (num)
+	{
+	case 1:
+		system("cls");
+		if (item == 0 && account[acc].rat.gold >= 7) //Бантик
+		{
+			purchase(account, acc, true);
+			account[acc].rat.gold -= 7;
+			account[acc].shop.bow = true;
+			account[acc].shop.colorBow = color;
+			return;
+		}
+		else if (item == 1 && account[acc].rat.gold >= 10) //Наушники
+		{
+			purchase(account, acc, true);
+			account[acc].rat.gold -= 10;
+			account[acc].shop.headphones = true;
+			account[acc].shop.colorHeadphones = color;
+			return;
+		}
+		else
+			purchase(account, acc, false);
+
+		break;
+	case 2:
+		interior(account, acc, item);
+	}
 }
 
 
