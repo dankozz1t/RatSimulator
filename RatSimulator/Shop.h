@@ -66,7 +66,7 @@ void accessories(Account* account, int acc, int item = 0)
 	if (item >= 0 && item <= 2)  //Запуск на первую страницу 
 		item = menuShop(&bowRat, &headsetRat, &glassesRat, item);
 
-	while (item > 2 && item < 5) // Страница 2 
+	while (item >= 3 && item <= 5) // Страница 2 
 	{
 		system("cls");
 		item = menuShop(&collarRat, NULL, NULL, item);
@@ -90,6 +90,8 @@ void accessories(Account* account, int acc, int item = 0)
 
 			gotoxy(80, 26); SetColor(Yellow, Black);
 			cout << "Мое золото: " << account[acc].rat.gold << endl;
+			accessories(account, acc, item);
+			return;
 		}
 	}
 
