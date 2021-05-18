@@ -84,18 +84,18 @@ void printRules()
 	string rows[] = {
 	"Правила:",
 	" ",
-	" Ваша задача прожить максимальное количество времени. ",
-	"Играя в мини-игры, вы можете получить разные плюшки. ",
+	"Ваша задача прожить максимальное количество времени.",
+	"Играя в мини-игры, вы получите разные плюшки.",
 	" ",
 	"Режимы:",
-	"Существует 5 режимов или же окрасов главной крысы.",
-	"Разница их в максимальном запасе здоровья и сытости, так же в базовом капитале золота. ",
+	"Существует 4 режимов или же окрасов главной крысы.",
+	"Разница их в максимальном запасе здоровья и сытости, так же в базовом капитале золота.",
 	" ",
 	"Очки рейтинга:",
-	"Получаете и теряете за исход мини-игр. Идут в общую таблицу рекордов.",
+	"Получаете и теряете за исход мини-игр и сюжетных действий. Идут в общую таблицу рекордов.",
 	" ",
-	" Золото:",
-	"Дается при выигрыше в мине-игре. Нужно для прокачки крысы, аксессуаров",
+	"Золото:",
+	"Дается при выигрыше в мине-игре. Нужно для прокачки крысы, аксессуаров, интерьера.",
 	" ",
 	"Здоровье:",
 	"Отнимается при проигрыше в мини-игры, пополнять его можно купив аптечку.",
@@ -106,7 +106,7 @@ void printRules()
 	int sizeRowsArray = sizeof(rows) / sizeof(string);
 	for (int i = 0; i < sizeRowsArray; i++)
 	{
-		switch (i) //Погуглить как сделать адекватно эту хуйню
+		switch (i) //Сделать адекватно эту *****
 		{
 		case 0:
 			SetColor(Red, Black);
@@ -158,10 +158,8 @@ void tableCowAndBulls(int x, int y)
 
 }
 
-
-void printRAT(Account* account, int acc, char eyes = 'O')  //Состояние Крысы. Привести к адекватности. 
+void printRAT(Account* account, int acc, char eyes = 'O')  //Состояние Крысы
 {
-	//^^ OO XX  (Глава крысы меняются в зависимости от действий игры)
 	switch (account[acc].rat.mode)
 	{
 	case 1:
@@ -198,7 +196,6 @@ void printRAT(Account* account, int acc, char eyes = 'O')  //Состояние 
 	ratArt.append(" |        |  ");
 
 	printRaw(ratArt, 83, 17);
-
 }
 
 
@@ -245,8 +242,7 @@ void printCharacteristics(Account* account, int acc)
 	cout << mode << " крыса ";
 	SetColor(Red, Black);
 	cout << account[acc].rat.name;
-
-
+									//Привести к адекватности! 
 	gotoxy(13, 2);
 	SetColor(Red, Black);
 	cout << "Здоровье: ";
@@ -335,23 +331,23 @@ void printShopRat()
 	printRaw(ratArt, 1, 1);
 }
 
-void purchase(Account* account, int acc, bool acquisition)
+void purchase(Account* account, int acc, bool acquisition) //Исход покупки
 {
-	playCoins();
 	printShopRat();
 	string signboard = R"Rat(
 КРЫСИНЫЙ МАГАЗИН ПАЦЮЧОК
 )Rat";
 	printRaw(signboard, 5, 1, 1, Red, Black);
 
-	if (acquisition)
+	if (acquisition)					//Если покупка прошла удачно
 	{
+		playPurchase();
 		string textDealer = R"Rat(
 - Спасибо за покупку! Приходите еще!
 )Rat";
 		printRaw(textDealer, 0, 3, 1, LightRed, Black, 50);
 	}
-	else
+	else 
 	{
 		string textDealer = R"Rat(
 - Эх, помню я был такой же молодой и глу..
@@ -363,7 +359,8 @@ void purchase(Account* account, int acc, bool acquisition)
 		vector<string> Dealer = { " Выслушать торговца", "   Чел...Ты в муте" };
 
 		int num = m.select_vertical(Dealer, 39, 18) + 1;
-		if (num == 1)
+
+		if (num == 1)					//Если Выслушать Торговца
 		{
 			system("cls");
 			printShopRat();
@@ -401,7 +398,7 @@ void purchase(Account* account, int acc, bool acquisition)
 			printRaw(textGlobal, 0, 13, 1, LightRed, Black, 50);
 			account[acc].rat.rating += 25;
 		}
-		else
+		else							//Если Игнорировать Торговца
 		{
 			playLetMeDay();
 			system("cls");
@@ -540,7 +537,6 @@ int headsetRat() //В меню
 
 	return 0;
 }
-
 int headsetRat(int colorItem = Brown)
 {
 	gotoxy(46, 4); SetColor(Red, Black);
@@ -552,50 +548,6 @@ int headsetRat(int colorItem = Brown)
 	printHeadphones(41, 4, colorItem);
 
 	return 0;
-}
-
-int colorSelection(int (*printCell)(int), int color, int x = 7, int y = 15)
-{
-	int num = 0, num2 = 4;
-	while (num == 0)
-	{
-		Menu mP;
-		vector<string> mPlayer = { "       Розовый", "       Зеленый", "        Синий", "         Еще" };
-		num = mP.select_vertical(mPlayer, x, y) + 1;
-
-		switch (num)
-		{
-		case 1:
-			color = LightMagenta;
-			break;
-		case 2:
-			color = LightGreen;
-			break;
-		case 3:
-			color = LightBlue;
-			break;
-		case 4:
-			Menu mP2;
-			vector<string> mPlayer = { "       Желтный", "       Голубой", "       Красный", "        Назад" };
-			num2 = mP2.select_vertical(mPlayer, x, y) + 1;
-			switch (num2)
-			{
-			case 1:
-				color = Yellow;
-				break;
-			case 2:
-				color = LightCyan;
-				break;
-			case 3:
-				color = LightRed;
-				break;
-			case 4: num = 0;
-			}
-			break;
-		}
-	}
-	printCell(color);
-	return color;
 }
 
 int printGlasses(int x = 81, int y = 17, int textColor = LightCyan, char eyes = 'O')
@@ -623,7 +575,6 @@ int glassesRat() //В меню
 
 	return 0;
 }
-
 int glassesRat(int colorItem = Brown)
 {
 
@@ -634,7 +585,6 @@ int glassesRat(int colorItem = Brown)
 	cout << "ЦЕНА: 12 золота";
 
 	printGlasses(77, 6, colorItem, '_');
-
 	return 0;
 }
 
@@ -657,7 +607,6 @@ int collarRat() //В меню
 	printCollar(14, 6, Brown);
 	return 0;
 }
-
 int collarRat(int colorItem = Brown)
 {
 	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
@@ -699,7 +648,6 @@ int armchairRat() //В меню
 	printArmchair(4, 5, Brown);
 	return 0;
 }
-
 int armchairRat(int colorItem = Brown)
 {
 	gotoxy(7, 4, 7, 30); SetColor(Red, Black);
@@ -711,7 +659,6 @@ int armchairRat(int colorItem = Brown)
 	printArmchair(4, 5, colorItem);
 	return 0;
 }
-
 
 
 void printLamp(int x = 59, int y = 10, int textColor = Brown)
@@ -745,7 +692,6 @@ int lampRat() //В меню
 
 	return 0;
 }
-
 int lampRat(int colorItem = Brown)
 {
 	printLamp(39, 3, colorItem);
