@@ -1,8 +1,6 @@
 ﻿#pragma once
-
 #include"Func.h"
 #include"Music.h"
-
 
 void printPacman()
 {
@@ -48,10 +46,8 @@ void printFood(int x)
 
 	for (int i = 0; i < ROWS_CONT; i++)
 	{
-		
-		gotoxy(100-x, 8 + i);
+		gotoxy(100-x, 8 + i);  //Проблемы с кординатами, из-за чего они смешаются 
 		cout << rowsT[i] << endl;
-		
 	}
 }
 
@@ -66,9 +62,9 @@ int RulesToFeed(Account* account, int acc)
 	"Сейчас вы больше хомяк, нежели крыса",
 	"Ваша задача сьесть максимальное количество еды",
 	"У вас есть всего лишь 10 секунд что бы набить пузо",
-	"Каждый нажатый ПРОБЕЛ равняется одной сытости",
+	"Каждая нажатая <-- равняется одной сытости",
 	" ",
-	"Вам нужно нажимать пробел пока не закончится время",
+	"Вам нужно нажимать <-- пока не закончится время",
 	"",
 	"При попытке жульничать вас остановит крысиный патруль",
 	"Будьте честны, ведь он заберет всё ваше золото и обнулит рейтинг!"
@@ -82,7 +78,6 @@ int RulesToFeed(Account* account, int acc)
 		gotoxy(0, 4 + i + 1, size(rows[i]));
 		cout << rows[i] << endl;
 	}
-
 
 	SetColor(Red, Black);
 	gotoxy(0, 19, 27);
@@ -103,21 +98,17 @@ void feedRat(Account* account, int acc)
 
 		if (RulesToFeed(account, acc) == 1)
 		{
-
 			Timer t;
 			int timeNow = t.elapsed();
-			int spaceCount = 0;
-			int spaceGet = 0;
-			int x;
+			int spaceCount = 0, spaceGet = 0;
+
 			while (timeNow < 10)
 			{
 				system("cls");
 				SetColor(timeNow, Black);
-
 	
 				printFood(spaceCount);
 				printPacman();
-
 
 				SetColor(Red, Black);
 				gotoxy(0, 18, 18);
@@ -127,9 +118,9 @@ void feedRat(Account* account, int acc)
 
 				spaceGet = _getch();
 				playBiteSound();
-				Sleep(50);
+				Sleep(25);
 
-				if (spaceGet == 32)
+				if (spaceGet == Left)
 					spaceCount++;
 
 				timeNow = t.elapsed();
@@ -140,11 +131,10 @@ void feedRat(Account* account, int acc)
 			gotoxy(0, 15, 17);
 			cout << "Прошло 10 секунд" << endl;
 
-			if (spaceCount < 70)
+			if (spaceCount < 60) //Больше 60 ед. считается как жульничество!
 			{
-				Sleep(2000);
+				Sleep(1500);
 				system("cls");
-
 
 				gotoxy(0, 15, 17);
 				cout << "Вы сьели " << spaceCount << " еды";
@@ -157,7 +147,7 @@ void feedRat(Account* account, int acc)
 			else //ну давай-давай, нападай
 			{
 				playPoliceSiren();
-				Sleep(2000);
+				Sleep(1500);
 				system("cls");
 
 				printPolic();
