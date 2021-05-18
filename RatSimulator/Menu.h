@@ -42,17 +42,17 @@ struct Menu
 			c = _getch();
 			switch (c)
 			{
-			case 72:
+			case Up:
 				if (pos > 0)
 					pos--;
 				playButtonSwitchSound();
 				break;
-			case 80:
+			case Down:
 				if (pos < menu.size() - 1)
 					pos++;
 				playButtonSwitchSound();
 				break;
-			case 13:
+			case Enter:
 				playMenuYes();
 				break;
 			default:
