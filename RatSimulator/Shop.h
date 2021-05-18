@@ -1,6 +1,50 @@
 ﻿#pragma once
 
 
+int colorSelection(int (*printCell)(int), int color, int x = 7, int y = 15) //Выбор цветов в магазине 
+{
+	int num = 0, num2 = 4;
+	while (num == 0)
+	{
+		Menu mP;
+		vector<string> mPlayer = { "       Розовый", "       Зеленый", "        Синий", "         Еще" };
+		num = mP.select_vertical(mPlayer, x, y) + 1;
+
+		switch (num)
+		{
+		case 1:
+			color = LightMagenta;
+			break;
+		case 2:
+			color = LightGreen;
+			break;
+		case 3:
+			color = LightBlue;
+			break;
+		case 4:
+			Menu mP2;
+			vector<string> mPlayer = { "       Желтный", "       Голубой", "       Красный", "        Назад" };
+			num2 = mP2.select_vertical(mPlayer, x, y) + 1;
+			switch (num2)
+			{
+			case 1:
+				color = Yellow;
+				break;
+			case 2:
+				color = LightCyan;
+				break;
+			case 3:
+				color = LightRed;
+				break;
+			case 4: num = 0;
+			}
+			break;
+		}
+	}
+	printCell(color);
+	return color;
+}
+
 void careRat(Account* account, int acc)
 {
 	system("cls");
@@ -231,11 +275,9 @@ void interior(Account* account, int acc, int item = 0)
 	}
 }
 
-
 void shop(Account* account, int acc)
 {
 	system("cls");
-
 	printShopRat();
 
 	string signboard = R"Rat(
@@ -245,12 +287,12 @@ void shop(Account* account, int acc)
 
 	if (account[acc].rat.gold > 0)
 	{
+		playWelcomeShop();
 		string ratArt = R"Rat(
 - Привет, хвостатая, решила обновиться?
 - Выбери интересующий тебя раздел
 )Rat";
 		printRaw(ratArt, 0, 3, 1, LightRed, Black, 0);
-
 
 		Menu sP;
 		vector<string> shopPointer = { "    Забота о себе", "     Аксессуары", "      Интерьер", "        Выход" };
@@ -275,7 +317,6 @@ void shop(Account* account, int acc)
 	}
 	else
 	{
-		playRozbiinik();
 		string ratArt = R"Rat(
 - Ты кто такая? Крыса )Rat";
 		ratArt.append(account[acc].rat.name);
@@ -287,6 +328,7 @@ void shop(Account* account, int acc)
 - Приходи когда заработаешь денег!
 )Rat";
 		printRaw(ratArt, 0, 3, 1, LightRed, Black, 50);
+		playGetOut();
 	}
 	SetColor(Red, Black);
 	gotoxy(30, 27);
