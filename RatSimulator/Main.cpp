@@ -23,6 +23,7 @@ int main()
 	ShowConsoleCursor(false);
 
 
+
 	RatSimulator start;
 	start.menu();
 	
