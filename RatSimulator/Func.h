@@ -91,14 +91,6 @@ void addElem(T*& a, int& n, T elem, int pos = -1) {//добавление эле
 
 }
 
-int findMaxString(vector<string> a) { // Возвращает длину самой длинной строчки в массиве
-	int max = a[0].length();
-	for (int i = 1; i < a.size(); i++) {
-		if (a[i].length() > max) max = a[i].length();
-	}
-	return max;
-}
-
 //Функция посимвольно печаетает с возможностью форматирования по центру, изменениям цвета и задержкой(анимацией)
 void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolor = 7, int backgroundСolor = 0, int sleep = 0, int sizeHeight = 100)
 {
@@ -195,18 +187,18 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 		case Up://Если есть вторая страница, отрывать первую
 			if (pos > 2)
 			{
-				playMenu();
+				playLeaf();
 				return pos = 0;
 			}
-			else playNope();
+			else playError();
 			break;
 		case Down:
 			if (printCell3) //Если существует третий прилавок, открыть вторую страницу
 			{
-				playMenu();
+				playLeaf();
 				if (pos < 3) return pos = 3;
 			}
-			else playNope();
+			else playError();
 			break;
 		case Enter:
 			playMenuYes();
