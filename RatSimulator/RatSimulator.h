@@ -275,24 +275,23 @@ struct RatSimulator
 
 	int AccSelection()
 	{
-		system("cls");
-		gotoxy(0, 15, 38);
+		system("cls"); gotoxy(0, 12, 38); SetColor(Red, Black);
 		cout << "C возращением, выберите ваш аккаунт: " << endl;
 
 		Menu c;
 		vector<string> listCurrency;
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
-			char buff[22];
-			char a[2] = " ";
-			for (size_t j = 0; j < strlen(account[i].rat.name); j++)
+			char buff[22]{" "};
+			for (size_t j = 0; j < (21 - strlen(account[i].rat.name)) /2; j++)
 			{
-				strcat(a, buff);
+				strcat(buff, " ");
 			}
-			strcat(account[i].rat.name, buff);
+			strcat(buff, account[i].rat.name);
+
 			listCurrency.push_back(buff);
 		}
-		return c.select_vertical(listCurrency, 39, 18) + 1;
+		return c.select_vertical(listCurrency, 39, 16) + 1;
 	}
 	void menu()
 	{

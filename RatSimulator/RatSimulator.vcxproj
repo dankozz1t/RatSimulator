@@ -140,13 +140,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Foo.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CowAndBull.h" />
     <ClInclude Include="FeedRat.h" />
-    <ClInclude Include="Foo.h" />
     <ClInclude Include="Func.h" />
     <ClInclude Include="Graphic.h" />
     <ClInclude Include="Menu.h" />
