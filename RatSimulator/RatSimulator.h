@@ -202,6 +202,12 @@ struct RatSimulator
 			if (account[acc].shop.bow)
 				printBow(85, 19, account[acc].shop.colorBow);
 
+			if (account[acc].rat.satiety == 0)
+				playImHungry();
+
+
+
+
 			if (account[acc].shop.headphones)
 				printHeadphones(81, 17, account[acc].shop.colorHeadphones);
 
