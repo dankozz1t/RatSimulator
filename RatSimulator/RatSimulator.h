@@ -182,6 +182,42 @@ struct RatSimulator
 		system("pause");
 	}
 
+	void expirationRat(Account* account, int acc) //Проверочки!
+	{
+
+		if (!account[acc].rat.health == 0)						//Если крыса мертва
+			printRAT(account, acc);
+		else
+			printRAT(account, acc, 'X');
+
+		if (account[acc].shop.bow)								//Если бантик есть
+			printBow(85, 19, account[acc].shop.colorBow);
+
+		if (account[acc].rat.satiety == 0)						//Если голодная
+			playImHungry();
+
+		if (account[acc].shop.headphones)						//Если есть наушники 
+			printHeadphones(81, 17, account[acc].shop.colorHeadphones);
+
+		if (account[acc].shop.glasses)							 //Если есть очки
+		{
+			if ((!account[acc].rat.health == 0))
+				printGlasses(84, 21, account[acc].shop.colorGlasses);
+			else
+				printGlasses(84, 21, account[acc].shop.colorGlasses, 'X');
+		}
+
+		if (account[acc].shop.collar)						  //Если есть ошейник
+			printCollar(85, 26, account[acc].shop.colorCollar);
+
+		if (account[acc].shop.armchair)						 //Если есть диван
+			printArmchair(9, 12, account[acc].shop.colorArmchair);
+
+
+		if (account[acc].shop.lamp)							//Если есть торшер
+			printLamp(59, 10, account[acc].shop.colorLamp);
+	}
+
 	void menuPlayer(int acc = -1)
 	{
 		if (acc == -1)
@@ -195,39 +231,8 @@ struct RatSimulator
 			system("cls");
 			SetColor(Magenta, Black);
 			printFrame(25, 88, 6, 1);
-			if (!account[acc].rat.health == 0)
-				printRAT(account, acc);
-			else
-				printRAT(account, acc, 'X');
-			if (account[acc].shop.bow)
-				printBow(85, 19, account[acc].shop.colorBow);
-
-			if (account[acc].rat.satiety == 0)
-				playImHungry();
-
-
-
-
-			if (account[acc].shop.headphones)
-				printHeadphones(81, 17, account[acc].shop.colorHeadphones);
-
-			if (account[acc].shop.glasses)
-			{
-				if ((!account[acc].rat.health == 0))
-					printGlasses(84, 21, account[acc].shop.colorGlasses);
-				else
-					printGlasses(84, 21, account[acc].shop.colorGlasses, 'X');
-			}
-
-			if (account[acc].shop.collar)
-				printCollar(85, 26, account[acc].shop.colorCollar);
-
-			if (account[acc].shop.armchair)
-				printArmchair(9, 12, account[acc].shop.colorArmchair);
-
-
-			if (account[acc].shop.lamp)
-				printLamp(59, 10, account[acc].shop.colorLamp);
+		
+			expirationRat(account, acc);
 
 			printCharacteristics(account, acc);
 
@@ -270,14 +275,24 @@ struct RatSimulator
 
 	int AccSelection()
 	{
+		system("cls");
+		gotoxy(0, 15, 38);
 		cout << "C возращением, выберите ваш аккаунт: " << endl;
+
 		Menu c;
 		vector<string> listCurrency;
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
-			listCurrency.push_back(account[i].rat.name);
+			char buff[22];
+			char a[2] = " ";
+			for (size_t j = 0; j < strlen(account[i].rat.name); j++)
+			{
+				strcat(a, buff);
+			}
+			strcat(account[i].rat.name, buff);
+			listCurrency.push_back(buff);
 		}
-		return c.select_vertical(listCurrency, 1, 4);
+		return c.select_vertical(listCurrency, 39, 18) + 1;
 	}
 	void menu()
 	{
@@ -302,8 +317,12 @@ struct RatSimulator
 				if (sizeAcc)
 					menuPlayer(AccSelection());
 				else
-					cout << "Аккаунты не найдено" << endl;
-				system("pause");
+				{
+					system("cls"); gotoxy(0, 15,41); SetColor(Red, Black);
+					cout << "Крыс не существует! Может быть вы хомяк?" << endl;
+					playGetOut();
+					gotoxy(30, 28); system("pause");
+				}
 				break;
 			case 3:
 				printAcc(account, sizeAcc);
