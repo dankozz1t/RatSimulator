@@ -125,6 +125,7 @@ int guessNum(int modeSize, char secretNum[], int att, char* previous[], int size
 
 		if (cow == modeSize)
 		{
+			playWin();
 			cout << "\n Победа! " << endl;
 			cout << " Попыток: " << att << endl;
 
@@ -137,6 +138,7 @@ int guessNum(int modeSize, char secretNum[], int att, char* previous[], int size
 	}
 	else
 	{
+		playGameOver();
 		cout << "\n Поражение! " << endl;
 
 		system("pause");
