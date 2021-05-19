@@ -4,21 +4,6 @@
 #include"Menu.h"
 #include"Timer.h"
 
-struct Date
-{
-	int d, m, y;
-
-	void print()
-	{
-		if (d < 10)
-			cout << 0;
-		cout << d << ".";
-		if (m < 10)
-			cout << 0;
-		cout << m << "." << y;
-	}
-};
-
 struct Rat
 {
 	char name[10];
@@ -32,29 +17,28 @@ struct Rat
 struct Shop
 {
 	bool bow = false;
-	int colorBow;
+	int colorBow = 0;
 
 	bool headphones = false;
-	int colorHeadphones;
+	int colorHeadphones = 0;
 
 	bool glasses = false;
-	int colorGlasses;
+	int colorGlasses = 0;
 
 	bool collar = false;
-	int colorCollar;
+	int colorCollar = 0;
 
 	bool armchair = false;
-	int colorArmchair;
+	int colorArmchair = 0;
 
 	bool lamp = false;
-	int colorLamp;
+	int colorLamp = 0;
 };
 
 struct Account
 {
 	Rat rat;
-	Date date;
 	Shop shop;
 	int time = 0;
-	int FeedingAttempts;
+	int FeedingAttempts = 0;
 };

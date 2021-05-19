@@ -6,15 +6,105 @@
 #include<fstream>
 #include"Menu.h"
 #include"Timer.h"
-#include"CowAndBull.h"
 #include"FeedRat.h"
 #include"Shop.h"
 #include"Music.h"
+#include"CowAndBull.h"
 
 struct RatSimulator
 {
 	Account* account = nullptr;
 	int sizeAcc = 0;
+
+
+	void save()
+	{
+		ofstream out("sizeRat.txt"); //имена и количесво аккаунтов
+		out << sizeAcc << endl;
+		for (size_t i = 0; i < sizeAcc; i++)
+		{
+			out << account[i].rat.name << endl;
+		}
+		out.close();
+
+		for (size_t i = 0; i < sizeAcc; i++)
+		{
+			char* buff = new char[17]{" "};  //Каждый аккаунт в отдельный файл
+			strcat(buff, account[i].rat.name);
+			strcat(buff, ".txt");
+
+			ofstream out(buff);
+																							//Крыса		
+			out << account[i].rat.name << endl; 
+			out << account[i].rat.mode << endl;
+			out << account[i].rat.rating << endl;
+			out << account[i].rat.satiety << endl;
+			out << account[i].rat.gold << endl;
+			out << account[i].rat.health << endl;
+																							//Магазин
+			out << account[i].shop.bow << " " << account[i].shop.colorBow << endl;				
+			out << account[i].shop.headphones << " " << account[i].shop.colorHeadphones << endl;
+			out << account[i].shop.glasses << " " << account[i].shop.colorGlasses << endl;
+			out << account[i].shop.collar << " " << account[i].shop.colorCollar << endl;
+			out << account[i].shop.armchair << " " << account[i].shop.colorArmchair << endl;
+			out << account[i].shop.lamp << " " << account[i].shop.colorLamp << endl;
+																							//Аккаунт 
+			out << account[i].time << endl;
+			out << account[i].FeedingAttempts << endl;
+
+			out.close();
+		}
+	}
+
+	void load()
+	{
+		ifstream in("sizeRat.txt");
+		Account acc;
+		in >> sizeAcc;
+		account = new Account[sizeAcc];
+		for (size_t i = 0; i < sizeAcc; i++)
+		{
+			in.getline(account[i].rat.name, 11);
+		}
+
+		for (size_t i = 0; i < sizeAcc; i++)
+		{
+			char* buff = new char[17]{ " " };  //Каждый аккаунт в отдельный файл
+			strcat(buff, account[i].rat.name);
+			strcat(buff, ".txt");
+
+			ifstream in(buff);
+			//Крыса		
+			in.getline(account[i].rat.name,11);
+			in >> account[i].rat.mode;
+			in >> account[i].rat.rating;
+			in >> account[i].rat.satiety;
+			in >> account[i].rat.gold; 
+			in >> account[i].rat.health;	
+			
+			
+			//Магазин
+			in >> account[i].shop.bow  >> account[i].shop.colorBow;
+			in >> account[i].shop.headphones >> account[i].shop.colorHeadphones;
+			in >> account[i].shop.glasses  >> account[i].shop.colorGlasses;
+			in >> account[i].shop.collar >> account[i].shop.colorCollar;
+			in >> account[i].shop.armchair >> account[i].shop.colorArmchair;
+			in >> account[i].shop.lamp >> account[i].shop.colorLamp;
+			 
+			//Аккаунт 
+			in >> account[i].time;
+			in >> account[i].FeedingAttempts;
+		}
+	}
+
+
+
+
+
+
+
+
+
 
 	void newPlay()
 	{
@@ -218,10 +308,10 @@ struct RatSimulator
 			printLamp(59, 10, account[acc].shop.colorLamp);
 	}
 
-	void menuPlayer(int acc = -1)
+	void menuPlayer(int acc)
 	{
-		if (acc == -1)
-			acc = (sizeAcc - 1);
+	/*	if (acc == -1)
+			acc = (sizeAcc - 1);*/
 
 		Timer time;
 		time.reset();
@@ -231,7 +321,7 @@ struct RatSimulator
 			system("cls");
 			SetColor(Magenta, Black);
 			printFrame(25, 88, 6, 1);
-		
+
 			expirationRat(account, acc);
 
 			printCharacteristics(account, acc);
@@ -275,15 +365,15 @@ struct RatSimulator
 
 	int AccSelection()
 	{
-		system("cls"); gotoxy(0, 12, 38); SetColor(Red, Black);
-		cout << "C возращением, выберите ваш аккаунт: " << endl;
+		system("cls"); gotoxy(0, 11, 37); SetColor(Red, Black);
+		cout << "C возращением, выберите ваш аккаунт:" << endl;
 
 		Menu c;
 		vector<string> listCurrency;
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
-			char buff[22]{" "};
-			for (size_t j = 0; j < (21 - strlen(account[i].rat.name)) /2; j++)
+			char buff[22]{ " " };
+			for (size_t j = 0; j < (21 - strlen(account[i].rat.name)) / 2; j++) //Форматирование в меню
 			{
 				strcat(buff, " ");
 			}
@@ -291,10 +381,12 @@ struct RatSimulator
 
 			listCurrency.push_back(buff);
 		}
-		return c.select_vertical(listCurrency, 39, 16) + 1;
+		return c.select_vertical(listCurrency, 39, 16);
 	}
 	void menu()
 	{
+		load();
+
 		do {
 			system("cls");
 			SetColor(Green, Black);
@@ -303,42 +395,35 @@ struct RatSimulator
 			Menu m;
 			vector<string> mainMenu = { "      Новая игра", "     Я уже играл", "       Рекорды", "       Правила" ,"      Об авторе" , "        Выход" };
 
-			int item = 2;
-
 			int num = m.select_vertical(mainMenu, 39, 18) + 1;
 			switch (num)
 			{
 			case 1:
 				newPlay();
-				menuPlayer();
+				menuPlayer(sizeAcc-1);
 				break;
 			case 2:
 				if (sizeAcc)
 					menuPlayer(AccSelection());
 				else
 				{
-					system("cls"); gotoxy(0, 15,41); SetColor(Red, Black);
+					system("cls"); gotoxy(0, 15, 41); SetColor(Red, Black);
 					cout << "Крыс не существует! Может быть вы хомяк?" << endl;
 					playGetOut();
 					gotoxy(30, 28); system("pause");
 				}
 				break;
 			case 3:
-				printAcc(account, sizeAcc);
+				statistics(account, sizeAcc);
 				break;
 			case 4:
 				printRules();
 				break;
 			case 5:
-				system("cls");
-				SetColor(Red, Black);
-				gotoxy(0, 15, 24);
-				cout << "Автор умер от говнокода" << endl;
-				SetColor(Green, Black);
-				gotoxy(30, 27);
-				system("pause");
+				creator();
 				break;
 			case 6:
+				save();
 				return;
 			default:
 				break;
