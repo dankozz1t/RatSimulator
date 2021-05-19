@@ -198,24 +198,57 @@ void printRAT(Account* account, int acc, char eyes = 'O')  //Состояние 
 	printRaw(ratArt, 83, 17);
 }
 
+void printTime(int timeS)
+{
+	int h = timeS / 3600;
+	int m = (timeS - h * 3600) / 60;
+	int s = timeS - h * 3600 - m * 60;
 
-void printAcc(Account* account, int sizeAcc) //Тестовый вариант
+	SetColor(Red, Black);
+	if (h < 10)
+		cout << 0;
+	cout << h << ":";
+	if (m < 10)
+		cout << 0;
+	cout << m << ":";
+	if (s < 10)
+		cout << 0;
+	cout << s;
+	SetColor();
+}
+
+void statistics(Account* account, int sizeAcc) //Тестовый вариант
 {
 	setlocale(0, "");
 	system("cls");
+	int y = (30 - (sizeAcc + 4)) / 2; //Что бы всегда по центру было
+	printFrame(sizeAcc + 4, 45, 30, y);	
+
+	gotoxy(32, y + 1);
+	char statAcc[11]{" "};
+	cout << " ИМЯ      | СОСТОЯНИЕ |РЕЙТИНГ |  ВРЕМЯ   " << endl;
+	gotoxy(31, y + 2);
+	cout << "-----------|-----------|--------|----------" << endl;
+
 	for (size_t i = 0; i < sizeAcc; i++)
 	{
-		cout << "----------Акк № " << i << endl;
-		cout << "ИМЯ  " << account[i].rat.name << endl;
-		cout << "Мод  " << account[i].rat.mode << endl;
-		cout << "рейтинг  " << account[i].rat.rating << endl;
-		cout << "сытость  " << account[i].rat.satiety << endl;
-		cout << "голда  " << account[i].rat.gold << endl;
-		cout << "здоровье  " << account[i].rat.health << endl;
-		cout << "Время  " << account[i].time << endl;
+		char mode[12]{ " " };
+		if (account[i].rat.health > 0)
+			strcpy(mode, " Живая    ");
+		else
+			strcpy(mode, " Мертва   ");
+
+		gotoxy(31, y + 3 + i);
+		cout << " "<< account[i].rat.name;
+		gotoxy(42, y + 3 + i);
+		cout << "|" << mode << " |";
+		gotoxy(56, y + 3 + i);
+		cout << account[i].rat.rating;
+		gotoxy(63, y + 3 + i);
+		cout << "| ";
+		printTime(account[i].time);
 	}
-	gotoxy(30, 28);
-	system("pause");
+	gotoxy(30, 28); SetColor(Red, Black); system("pause");
 }
 
 
@@ -242,7 +275,7 @@ void printCharacteristics(Account* account, int acc)
 	cout << mode << " крыса ";
 	SetColor(Red, Black);
 	cout << account[acc].rat.name;
-									//Привести к адекватности! 
+	//Привести к адекватности! 
 	gotoxy(13, 2);
 	SetColor(Red, Black);
 	cout << "Здоровье: ";
@@ -347,7 +380,7 @@ void purchase(Account* account, int acc, bool acquisition) //Исход поку
 )Rat";
 		printRaw(textDealer, 0, 3, 1, LightRed, Black, 50);
 	}
-	else 
+	else
 	{
 		string textDealer = R"Rat(
 - Эх, помню я был такой же молодой и глу..
@@ -702,4 +735,45 @@ int lampRat(int colorItem = Brown)
 	cout << "ЦЕНА: 15 золота";
 
 	return 0;
+}
+
+void creator()
+{
+	system("cls");
+	int num = 0;
+	while (num != 3)
+	{
+		gotoxy(0, 2, 10); SetColor(Red, Black);
+		cout << "Об Авторе" << endl;
+		string creatorText = R"Rat(
+Данько Алекс Тейлор Александрович, 18 годиков
+
+По образованию пищевой технолог, карантин заставил меня переосмыслить бытие
+
+Что и привело меня в компьютерную академии ШАГ, на разработку ПО.
+
+Ярый фанат хвостатых друзей, отсюда и задумка данной игры
+
+Большинство сюжета является отсылкой к моим крысам, а именно:
+
+Светло серая крыса, окраса Дамбо по имени Реми.
+Черно белая крыса, окраса Хаски по имени Брейн.
+Лысая крыса, окраса Сфинкс по имени Пинки.
+)Rat";
+
+		printRaw(creatorText, 5, 3, 1, White, Black);
+
+		Menu m;
+		vector<string> mainMenu = { " Посмотреть на крыс", "  Перейти в GitHub", "        Выход" };
+		num = m.select_vertical(mainMenu, 39, 20) + 1;
+		switch (num)
+		{
+		case 1:
+			system("start RatLove.png");
+			break;
+		case 2:
+			system("start https://github.com/dankozz1t/RatSimulator.git");
+			break;
+		}
+	}
 }
