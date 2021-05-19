@@ -19,7 +19,7 @@ struct RatSimulator
 
 	void save()
 	{
-		ofstream out("sizeRat.txt"); //имена и количесво аккаунтов
+		ofstream out("Save\\sizeRat.txt"); //имена и количесво аккаунтов
 		out << sizeAcc << endl;
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
@@ -29,7 +29,7 @@ struct RatSimulator
 
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
-			char* buff = new char[17]{" "};  //Каждый аккаунт в отдельный файл
+			char* buff = new char[]{"Save\\"};  //Каждый аккаунт в отдельный файл
 			strcat(buff, account[i].rat.name);
 			strcat(buff, ".txt");
 
@@ -58,7 +58,7 @@ struct RatSimulator
 
 	void load()
 	{
-		ifstream in("sizeRat.txt");
+		ifstream in("Save\\sizeRat.txt");
 		Account acc;
 		in >> sizeAcc;
 		account = new Account[sizeAcc];
@@ -70,7 +70,7 @@ struct RatSimulator
 
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
-			char* buff = new char[17]{ " " };  //Каждый аккаунт в отдельный файл
+			char* buff = new char[]{ "Save\\" };  //Каждый аккаунт в отдельный файл
 			strcat(buff, account[i].rat.name);
 			strcat(buff, ".txt");
 
