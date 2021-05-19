@@ -772,7 +772,7 @@ void creator()
 		switch (num)
 		{
 		case 1:
-			system("start RatLove.png");
+			system("start Resources\\RatLove.png");
 			break;
 		case 2:
 			system("start https://github.com/dankozz1t/RatSimulator.git");
