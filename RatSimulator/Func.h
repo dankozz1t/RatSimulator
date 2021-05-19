@@ -136,24 +136,47 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 	mciSend(L"close music");
 	SetColor();
 }
+
+int formattedLength(string s) {
+	int size = 0;
+	for (int i = 0; i < s.size(); i++) {
+		bool ifFG = false, ifBG = false;
+
+		if (s[i] == '%') {
+			if (hexIntMap.count(s[i + 1])) {
+
+				ifFG = true;
+			}
+
+			if (hexIntMap.count(s[i + 2])) {
+				ifBG = true;
+			}
+			i += ifFG + ifBG;
+			continue;
+		}
+
+		size++;
+	}
+	return size;
+}
 void printRawF(string raw, int x, int _y, bool centered = false) { //Чудо Дмитрия (%Цвет)
 	if (centered) {
-		vector<string> strings;
-		string currentString = "";
+		vector<string> strings; // Массив отдельных строк из raw
+		string currentString = ""; // Буфер для отделения
 		for (int i = 0; raw[i] != '\0'; i++) {
 			if (raw[i] == '\n') {
-				strings.push_back(currentString);
+				strings.push_back(currentString); // Если начинается новая строчка, текущую записываем в массив
 				currentString = "";
 			}
-			else currentString.push_back(raw[i]);
+			else currentString.push_back(raw[i]); // Если нет, продолжаем запись в буфер
 		}
 
 		for (int i = 0; i < strings.size(); i++) {
-			gotoxy(x - strings[i].size() / 2, _y + i);
-			for (int j = 0; j < strings[i].size(); j++) {
+			gotoxy(x - (formattedLength(strings[i]) / 2), _y + i); // Переходим в x - полстроки, то есть выравниваем центрально
+			for (int j = 0; j < strings[i].size(); j++) { // Посимвольная обработка строчки из массива, идентично fcout
 				bool ifFG = false, ifBG = false;
 				int fg = 7, bg = 0;
-				if (strings[i][j] == '%') {
+				if (strings[i][j] == '%') { // обрабатываем изменения цвета
 					if (hexIntMap.count(strings[i][j + 1])) {
 						fg = hexIntMap[strings[i][j + 1]];
 						ifFG = true;
@@ -163,11 +186,11 @@ void printRawF(string raw, int x, int _y, bool centered = false) { //Чудо Д
 						bg = hexIntMap[strings[i][j + 2]];
 						ifBG = true;
 					}
-					j += ifFG + ifBG;
+					j += ifFG + ifBG; // Пропускаем и не печатает изменения цвета
 
 					SetColor(fg, bg);
 				}
-				else cout << strings[i][j];
+				else cout << strings[i][j]; // Если это обычный символ, выводим
 			}
 			SetColor();
 		}
