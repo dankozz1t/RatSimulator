@@ -62,6 +62,7 @@ struct RatSimulator
 		Account acc;
 		in >> sizeAcc;
 		account = new Account[sizeAcc];
+		in.ignore();
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
 			in.getline(account[i].rat.name, 11);
@@ -310,9 +311,6 @@ struct RatSimulator
 
 	void menuPlayer(int acc)
 	{
-	/*	if (acc == -1)
-			acc = (sizeAcc - 1);*/
-
 		Timer time;
 		time.reset();
 		time.elapsed();
@@ -342,13 +340,8 @@ struct RatSimulator
 				shop(account, acc);
 				break;
 			case 4:
-				system("cls");
-				SetColor(Red, Black);
-				gotoxy(0, 15, 11);
-				cout << "В процессе" << endl;
-				SetColor(Green, Black);
-				gotoxy(30, 27);
-				system("pause");
+				save();
+				playPositiveSound();
 				break;
 			case 5:
 				account[acc].time += time.elapsed();
