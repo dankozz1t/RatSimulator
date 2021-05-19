@@ -22,7 +22,6 @@ int main()
 	system("mode con cols=100 lines=30");
 	ShowConsoleCursor(false);
 
-
 	RatSimulator start;
 	start.menu();	
 }
