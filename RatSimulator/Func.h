@@ -6,6 +6,8 @@
 #include<typeinfo>
 #include<conio.h> //getch
 #include"Music.h"
+#include <map> //printRawF
+
 
 using namespace std;
 
@@ -20,6 +22,11 @@ enum KeyboardKey
 {
 	Up = 72, Down = 80, Right = 77, Left = 75, Enter = 13, Space = 32
 };
+
+map<char, int> hexIntMap = { {'0', 0}, {'1', 1}, {'2', 2}, {'3', 3}, {'4', 4}, {'5', 5}, {'6', 6}, {'7', 7}, {'8', 8}, {'9', 9},
+			{'A', 10}, {'B', 11}, {'C', 12}, {'D', 13}, {'E', 14}, {'F', 15} };
+map<int, char> intHexMap = { {0, '0'}, {1, '1'}, {2, '2'}, {3, '3'}, {4, '4'}, {5, '5'}, {6, '6'}, {7, '7'}, {8, '8'}, {9, '9'},
+			{10, 'A'}, {11, 'B'}, {12, 'C'}, {13, 'D'}, {14, 'E'}, {15, 'F'} };
 
 
 void SetColor(int text = 7, int background = 0)
@@ -128,6 +135,71 @@ void printRaw(string raw, int x, int _y, int centerFormatting = 0, int textСolo
 	}
 	mciSend(L"close music");
 	SetColor();
+}
+void printRawF(string raw, int x, int _y, bool centered = false) { //Чудо Дмитрия (%Цвет)
+	if (centered) {
+		vector<string> strings;
+		string currentString = "";
+		for (int i = 0; raw[i] != '\0'; i++) {
+			if (raw[i] == '\n') {
+				strings.push_back(currentString);
+				currentString = "";
+			}
+			else currentString.push_back(raw[i]);
+		}
+
+		for (int i = 0; i < strings.size(); i++) {
+			gotoxy(x - strings[i].size() / 2, _y + i);
+			for (int j = 0; j < strings[i].size(); j++) {
+				bool ifFG = false, ifBG = false;
+				int fg = 7, bg = 0;
+				if (strings[i][j] == '%') {
+					if (hexIntMap.count(strings[i][j + 1])) {
+						fg = hexIntMap[strings[i][j + 1]];
+						ifFG = true;
+					}
+
+					if (hexIntMap.count(strings[i][j + 2])) {
+						bg = hexIntMap[strings[i][j + 2]];
+						ifBG = true;
+					}
+					j += ifFG + ifBG;
+
+					SetColor(fg, bg);
+				}
+				else cout << strings[i][j];
+			}
+			SetColor();
+		}
+	}
+	else {
+		int y = 0;
+		for (int i = 0; i < raw.size(); i++) {
+			bool ifFG = false, ifBG = false;
+			int fg = 7, bg = 0;
+			if (raw[i] == '%') {
+				if (hexIntMap.count(toupper(raw[i + 1]))) {
+					fg = hexIntMap[toupper(raw[i + 1])];
+					ifFG = true;
+				}
+
+				if (hexIntMap.count(toupper(raw[i + 2]))) {
+					bg = hexIntMap[toupper(raw[i + 2])];
+					ifBG = true;
+				}
+				SetColor(fg, bg);
+				i += ifFG + ifBG;
+			}
+			else {
+				cout << raw[i];
+				if (raw[i] == '\n') {
+					y++;
+					gotoxy(x, _y + y);
+				}
+			}
+		}
+		SetColor();
+	}
 }
 
 int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)() = NULL, int pos = 0, int textСolor = LightCyan, int textСolorNOW = Blue)
