@@ -29,7 +29,7 @@ struct RatSimulator
 
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
-			char* buff = new char[]{"Save\\"};  //Каждый аккаунт в отдельный файл
+			char* buff = new char[23]{"Save\\"};  //Каждый аккаунт в отдельный файл
 			strcat(buff, account[i].rat.name);
 			strcat(buff, ".txt");
 
@@ -70,7 +70,7 @@ struct RatSimulator
 
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
-			char* buff = new char[]{ "Save\\" };  //Каждый аккаунт в отдельный файл
+			char* buff = new char[23]{ "Save\\" };  //Каждый аккаунт в отдельный файл
 			strcat(buff, account[i].rat.name);
 			strcat(buff, ".txt");
 
