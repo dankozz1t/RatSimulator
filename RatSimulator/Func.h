@@ -20,7 +20,7 @@ enum ConsoleColor
 
 enum KeyboardKey
 {
-	Up = 72, Down = 80, Right = 77, Left = 75, Enter = 13, Space = 32
+	Up = 72, Down = 80, Right = 77, Left = 75, Enter = 13, Space = 32, Esc = 27
 };
 
 map<char, int> hexIntMap = { {'0', 0}, {'1', 1}, {'2', 2}, {'3', 3}, {'4', 4}, {'5', 5}, {'6', 6}, {'7', 7}, {'8', 8}, {'9', 9},
@@ -298,7 +298,6 @@ int menuShop(int (*printCell)(), int (*printCell2)() = NULL, int (*printCell3)()
 		case Enter:
 			playMenuYes();
 			return pos;
-
 		}
 	}
 	return pos;

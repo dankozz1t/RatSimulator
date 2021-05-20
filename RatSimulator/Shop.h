@@ -45,7 +45,7 @@ int colorSelection(int (*printCell)(int), int color, int x = 7, int y = 15) //В
 	return color;
 }
 
-void careRat(Account* account, int acc)
+int careRat(Account* account, int acc, int item =0)
 {
 	system("cls");
 
@@ -55,7 +55,7 @@ void careRat(Account* account, int acc)
 	gotoxy(80, 26); SetColor(Yellow, Black);
 	cout << "Мое золото: " << account[acc].rat.gold << endl;
 
-	int item = menuShop(&firstAidKit); //Запуск
+	item = menuShop(&firstAidKit); //Запуск
 	while (item != 0) //Пустые прилавки
 	{
 		gotoxy(0, 23, 34);
@@ -69,7 +69,7 @@ void careRat(Account* account, int acc)
 	}
 
 	Menu sP;
-	vector<string> shopPointer = { "        Купить", "        Назад" };
+	vector<string> shopPointer = { "        Купить", "        Назад", "        Выход" };
 
 	int num = sP.select_vertical(shopPointer, 39, 23) + 1;
 
@@ -82,17 +82,22 @@ void careRat(Account* account, int acc)
 			purchase(account, acc, true);
 			account[acc].rat.gold -= 50;
 			account[acc].rat.health += 50;
+			return 1;
 		}
 		else
 			purchase(account, acc, false);
 		break;
 	case 2:
+		careRat(account, acc, item);
+		break;
+	case 3:
+		return 0;
 		break;
 	}
 }
 
 
-void accessories(Account* account, int acc, int item = 0)
+int accessories(Account* account, int acc, int item = 0)
 {
 	system("cls");
 
@@ -130,7 +135,6 @@ void accessories(Account* account, int acc, int item = 0)
 			gotoxy(80, 26); SetColor(Yellow, Black);
 			cout << "Мое золото: " << account[acc].rat.gold << endl;
 			accessories(account, acc, item);
-			return;
 		}
 	}
 
@@ -152,7 +156,7 @@ void accessories(Account* account, int acc, int item = 0)
 	}
 
 	Menu sP;
-	vector<string> shopPointer = { "        Купить", "        Назад" };
+	vector<string> shopPointer = { "        Купить", "        Назад", "        Выход" };
 
 	int num = sP.select_vertical(shopPointer, 39, 23) + 1;
 
@@ -166,7 +170,7 @@ void accessories(Account* account, int acc, int item = 0)
 			account[acc].rat.gold -= 7;
 			account[acc].shop.bow = true;
 			account[acc].shop.colorBow = color;
-			return;
+			return 1;
 		}
 		else if (item == 1 && account[acc].rat.gold >= 10) //Наушники
 		{
@@ -174,7 +178,7 @@ void accessories(Account* account, int acc, int item = 0)
 			account[acc].rat.gold -= 10;
 			account[acc].shop.headphones = true;
 			account[acc].shop.colorHeadphones = color;
-			return;
+			return 1;
 		}
 		else if (item == 2 && account[acc].rat.gold >= 12) //Очки
 		{
@@ -182,7 +186,7 @@ void accessories(Account* account, int acc, int item = 0)
 			account[acc].rat.gold -= 12;
 			account[acc].shop.glasses = true;
 			account[acc].shop.colorGlasses = color;
-			return;
+			return 1;
 		}
 		else if (item == 3 && account[acc].rat.gold >= 5) //Ошейник
 		{
@@ -190,19 +194,22 @@ void accessories(Account* account, int acc, int item = 0)
 			account[acc].rat.gold -= 5;
 			account[acc].shop.collar = true;
 			account[acc].shop.colorCollar = color;
-			return;
+			return 1;
 		}
 		else
 			purchase(account, acc, false);
-
 		break;
 	case 2:
 		accessories(account, acc, item);
+		break;
+	case 3:
+		return 0;
+
 	}
 }
 
 
-void interior(Account* account, int acc, int item = 0)
+int interior(Account* account, int acc, int item = 0)
 {
 	system("cls");
 
@@ -242,7 +249,7 @@ void interior(Account* account, int acc, int item = 0)
 	}
 
 	Menu sP;
-	vector<string> shopPointer = { "        Купить", "        Назад" };
+	vector<string> shopPointer = { "        Купить", "        Назад", "        Выход" };
 
 	int num = sP.select_vertical(shopPointer, 39, 23) + 1;
 
@@ -256,7 +263,7 @@ void interior(Account* account, int acc, int item = 0)
 			account[acc].rat.gold -= 20;
 			account[acc].shop.armchair = true;
 			account[acc].shop.colorArmchair = color;
-			return;
+			return 1;
 		}
 		else if (item == 1 && account[acc].rat.gold >= 15) //Торшер
 		{
@@ -264,7 +271,7 @@ void interior(Account* account, int acc, int item = 0)
 			account[acc].rat.gold -= 15;
 			account[acc].shop.lamp = true;
 			account[acc].shop.colorLamp = color;
-			return;
+			return 1;
 		}
 		else
 			purchase(account, acc, false);
@@ -272,6 +279,9 @@ void interior(Account* account, int acc, int item = 0)
 		break;
 	case 2:
 		interior(account, acc, item);
+		break;
+	case 3:
+		return 0;
 	}
 }
 
@@ -302,13 +312,16 @@ void shop(Account* account, int acc)
 		switch (num)
 		{
 		case 1:
-			careRat(account, acc);
+			if (!careRat(account, acc))
+				shop(account, acc);
 			break;
 		case 2:
-			accessories(account, acc);
+			if (!accessories(account, acc))
+				shop(account, acc);
 			break;
 		case 3:
-			interior(account, acc);
+			if (!interior(account, acc))
+				shop(account, acc);
 			break;
 		case 4:
 			return;
