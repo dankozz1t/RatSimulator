@@ -21,29 +21,6 @@ int rulesRatCasino()
 
 	printRawF(creatorText, 62, 1, true);
 
-	//string rows[] = {
-	//"Крысиное казино",
-	//" ",
-	//"Правила просты. Вы делаете ставку(Золото) и загадываете число. (от 0 до 9)",
-	//"Если ваше число равняется выигрышным, ваша ставка удваеватся",
-	//"Если ваше число +-1 от выгрышного, то ваша ставка не исчезает",
-	//"Вы можете продолжить игру с вашей ставкой или же остановится",
-	//"Стоит учесть что при продолжении игры, стоимость захода не отнимается",
-
-	//"При выигрыше: +золота ставки, +25 рейтинга"
-	//"При проигрыше: -25 рейтинга, -10 здоровье, -10 сытость и ваша ставка"
-	//};
-	//int sizeRowsArray = sizeof(rows) / sizeof(string);
-	//for (int i = 0; i < sizeRowsArray; i++)
-	//{
-	//	if (i == 0)
-	//		SetColor(Red, Black);
-	//	else
-	//		SetColor(White, Black);
-	//	gotoxy(26, 2 + i, size(rows[i]), 100);
-	//	cout << rows[i] << endl;
-	//}
-
 	SetColor(Red, Black);
 	gotoxy(35, 14);
 	cout << "Стоимость захода составляет 10 здоровья и 10 сытости";
@@ -87,7 +64,7 @@ int RatCasino(int& goldRate)
 
 			timeNow = t.elapsed();
 		}
-		//winningNumber = 2; //Тесты
+		winningNumber = 2; //Тесты
 
 		if (userNumber == winningNumber)
 		{
@@ -100,7 +77,11 @@ int RatCasino(int& goldRate)
 
 			Menu m; vector<string> casinoPlay = { "     Продолжить", "        Выход" };
 			if (defeat = m.select_vertical(casinoPlay, 39, 21))
+			{
+				goldRate -= firstBet;
 				return 0;
+			}
+
 
 		}
 		else if (userNumber - 1 == winningNumber || userNumber + 1 == winningNumber)
@@ -113,6 +94,7 @@ int RatCasino(int& goldRate)
 			Menu m; vector<string> casinoPlay = { "     Продолжить", "        Выход" };
 			if (defeat = m.select_vertical(casinoPlay, 39, 21))
 				return 0;
+	
 		}
 		else
 		{
@@ -120,20 +102,13 @@ int RatCasino(int& goldRate)
 			defeat = true;
 		}
 	}
-	if (!defeat)
-	{
-		system("cls"); gotoxy(0, 17, 35);
-		cout << "Ваш выигрыш состовляет: " << goldRate << endl;
-		goldRate -= firstBet;
-	}
-	else
-	{
-		SetColor(Red, Black); gotoxy(0, 17, 10);
-		cout << "ПОРАЖЕНИЕ" << endl;
-		gotoxy(0, 18, 26);
-		cout << "Ваш проигрыш состовляет: "; SetColor(Brown, Black); cout << goldRate << endl;
-		goldRate = firstBet;
-	}
+
+	SetColor(Red, Black); gotoxy(0, 17, 10);
+	cout << "ПОРАЖЕНИЕ" << endl;
+	gotoxy(0, 18, 26);
+	cout << "Ваш проигрыш состовляет: "; SetColor(Brown, Black); cout << goldRate << endl;
+	goldRate = firstBet;
+
 	SetColor(Green, Black); gotoxy(30, 28); system("pause");
 	return defeat;
 }
