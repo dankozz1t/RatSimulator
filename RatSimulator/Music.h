@@ -149,3 +149,9 @@ void playCasino() {
 	_dir.append(L"\\Resources\\casino.wav");
 	PlaySound(_dir.c_str(), NULL, SND_ASYNC | SND_FILENAME);
 }
+void play8bitTreak() {
+
+	wstring _dir = dir;
+	_dir.append(L"\\Resources\\8bitTreak.wav");
+	PlaySound(_dir.c_str(), NULL, SND_ASYNC | SND_FILENAME);
+}
