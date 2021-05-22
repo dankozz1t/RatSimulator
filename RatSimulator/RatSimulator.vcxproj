@@ -150,6 +150,7 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="RatSimulator.h" />
+    <ClInclude Include="RatСasino.h" />
     <ClInclude Include="Shop.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="Timer.h" />

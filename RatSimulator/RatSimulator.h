@@ -10,12 +10,12 @@
 #include"Shop.h"
 #include"Music.h"
 #include"CowAndBull.h"
+#include"RatСasino.h"
 
 struct RatSimulator
 {
 	Account* account = nullptr;
 	int sizeAcc = 0;
-
 
 	void save()
 	{
@@ -97,12 +97,6 @@ struct RatSimulator
 			in >> account[i].FeedingAttempts;
 		}
 	}
-
-
-
-
-
-
 
 
 
@@ -192,7 +186,7 @@ struct RatSimulator
 				if (rulesBullAndCows() == 1)
 				{
 					int modeSize = 0;
-					if (bullsAndCows(modeSize)) //Бонусы за исход игры
+					if (bullsAndCows(modeSize)) //Если победа + бонусы
 					{
 						playCoins();
 						switch (modeSize)
@@ -235,13 +229,31 @@ struct RatSimulator
 				}
 				break;
 			case 2:
-				system("cls");
-				SetColor(Red, Black);
-				gotoxy(0, 15, 11);
-				cout << "В процессе" << endl;
-				SetColor(Green, Black);
-				gotoxy(30, 27);
-				system("pause");
+				if (rulesRatCasino() == 1)
+				{
+					system("cls"); SetColor(Red, Black);
+					int goldRate = 0;
+					gotoxy(0, 13, 24);
+					cout << "Введите вашу ставку: "; SetColor(Brown, Black); cin >> goldRate; SetColor(Red, Black);
+
+					if (account[acc].rat.gold >= goldRate) //Есть ли средства
+					{
+						if (RatCasino(goldRate)) //Если проигрыш
+							account[acc].rat.gold -= goldRate;
+						else
+						{
+							playCoins();
+							account[acc].rat.gold += goldRate;
+						}
+					}
+					else
+					{
+						gotoxy(0, 16, 24);
+						cout << "У вас всего "; SetColor(Brown, Black); cout << account[acc].rat.gold; SetColor(Red, Black); cout << " золота!";
+
+						gotoxy(30, 28); system("pause");
+					}
+				}
 				break;
 			case 3:
 				system("cls");
