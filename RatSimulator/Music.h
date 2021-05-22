@@ -142,3 +142,10 @@ void playGetOut() {
 	_dir.append(L"\\Resources\\GetOut.wav");
 	PlaySound(_dir.c_str(), NULL, SND_ASYNC | SND_FILENAME);
 }
+
+void playCasino() {
+
+	wstring _dir = dir;
+	_dir.append(L"\\Resources\\casino.wav");
+	PlaySound(_dir.c_str(), NULL, SND_ASYNC | SND_FILENAME);
+}
