@@ -29,26 +29,26 @@ struct RatSimulator
 
 		for (size_t i = 0; i < sizeAcc; i++)
 		{
-			char* buff = new char[23]{"Save\\"};  //Каждый аккаунт в отдельный файл
+			char* buff = new char[23]{ "Save\\" };  //Каждый аккаунт в отдельный файл
 			strcat(buff, account[i].rat.name);
 			strcat(buff, ".txt");
 
 			ofstream out(buff);
-																							//Крыса		
-			out << account[i].rat.name << endl; 
+			//Крыса		
+			out << account[i].rat.name << endl;
 			out << account[i].rat.mode << endl;
 			out << account[i].rat.rating << endl;
 			out << account[i].rat.satiety << endl;
 			out << account[i].rat.gold << endl;
 			out << account[i].rat.health << endl;
-																							//Магазин
-			out << account[i].shop.bow << " " << account[i].shop.colorBow << endl;				
+			//Магазин
+			out << account[i].shop.bow << " " << account[i].shop.colorBow << endl;
 			out << account[i].shop.headphones << " " << account[i].shop.colorHeadphones << endl;
 			out << account[i].shop.glasses << " " << account[i].shop.colorGlasses << endl;
 			out << account[i].shop.collar << " " << account[i].shop.colorCollar << endl;
 			out << account[i].shop.armchair << " " << account[i].shop.colorArmchair << endl;
 			out << account[i].shop.lamp << " " << account[i].shop.colorLamp << endl;
-																							//Аккаунт 
+			//Аккаунт 
 			out << account[i].time << endl;
 			out << account[i].FeedingAttempts << endl;
 
@@ -76,30 +76,27 @@ struct RatSimulator
 
 			ifstream in(buff);
 			//Крыса		
-			in.getline(account[i].rat.name,11);
+			in.getline(account[i].rat.name, 11);
 			in >> account[i].rat.mode;
 			in >> account[i].rat.rating;
 			in >> account[i].rat.satiety;
-			in >> account[i].rat.gold; 
-			in >> account[i].rat.health;	
-			
-			
+			in >> account[i].rat.gold;
+			in >> account[i].rat.health;
+
+
 			//Магазин
-			in >> account[i].shop.bow  >> account[i].shop.colorBow;
+			in >> account[i].shop.bow >> account[i].shop.colorBow;
 			in >> account[i].shop.headphones >> account[i].shop.colorHeadphones;
-			in >> account[i].shop.glasses  >> account[i].shop.colorGlasses;
+			in >> account[i].shop.glasses >> account[i].shop.colorGlasses;
 			in >> account[i].shop.collar >> account[i].shop.colorCollar;
 			in >> account[i].shop.armchair >> account[i].shop.colorArmchair;
 			in >> account[i].shop.lamp >> account[i].shop.colorLamp;
-			 
+
 			//Аккаунт 
 			in >> account[i].time;
 			in >> account[i].FeedingAttempts;
 		}
 	}
-
-
-
 
 	void newPlay()
 	{
@@ -176,7 +173,7 @@ struct RatSimulator
 			}
 
 			Menu mP;
-			vector<string> mPlayer = { "    Быки и коровы", "   Крысиное казино", "    Угадай факты", "   Крестики-нолики", "       Выход" };
+			vector<string> mPlayer = { "    Быки и коровы", "   Крысиное казино", "          +", "        Выход" };
 
 			int num = mP.select_vertical(mPlayer, 3, 5) + 1;
 
@@ -239,7 +236,11 @@ struct RatSimulator
 					if (account[acc].rat.gold >= goldRate) //Есть ли средства
 					{
 						if (RatCasino(goldRate)) //Если проигрыш
+						{
 							account[acc].rat.gold -= goldRate;
+							account[acc].rat.health -= 10;
+							account[acc].rat.satiety -= 10;
+						}
 						else
 						{
 							playCoins();
@@ -250,7 +251,6 @@ struct RatSimulator
 					{
 						gotoxy(0, 16, 24);
 						cout << "У вас всего "; SetColor(Brown, Black); cout << account[acc].rat.gold; SetColor(Red, Black); cout << " золота!";
-
 						gotoxy(30, 28); system("pause");
 					}
 				}
@@ -265,15 +265,6 @@ struct RatSimulator
 				system("pause");
 				break;
 			case 4:
-				system("cls");
-				SetColor(Red, Black);
-				gotoxy(0, 15, 11);
-				cout << "В процессе" << endl;
-				SetColor(Green, Black);
-				gotoxy(30, 27);
-				system("pause");
-				break;
-			case 5:
 				return;
 			default:
 				break;
@@ -287,8 +278,7 @@ struct RatSimulator
 
 	void expirationRat(Account* account, int acc) //Проверочки!
 	{
-
-		if (!account[acc].rat.health == 0)						//Если крыса мертва
+		if (account[acc].rat.health > 0)						//Если крыса мертва
 			printRAT(account, acc);
 		else
 			printRAT(account, acc, 'X');
@@ -329,39 +319,91 @@ struct RatSimulator
 
 		do {
 			system("cls");
-			SetColor(Magenta, Black);
-			printFrame(25, 88, 6, 1);
+			SetColor(Magenta, Black); printFrame(25, 88, 6, 1);
+			printCharacteristics(account, acc); //Здоровье, сытость,++
 
-			expirationRat(account, acc);
+			expirationRat(account, acc); //Главная крыса + наличие магазина
 
-			printCharacteristics(account, acc);
 
-			Menu mP;
-			vector<string> mPlayer = { "     Мини-игры", "   Покормить крысу", "      Магазин", "     Сохранение", "       Выход" };
-
-			int num = mP.select_vertical(mPlayer, 39, 18) + 1;
-			switch (num)
+			if (account[acc].rat.health > 0) //Если крыса живая
 			{
-			case 1:
-				miniGames(acc);
-				break;
-			case 2:
-				feedRat(account, acc);
-				break;
-			case 3:
-				shop(account, acc);
-				break;
-			case 4:
-				save();
-				playPositiveSound();
-				break;
-			case 5:
-				account[acc].time += time.elapsed();
-				return;
-			default:
-				break;
-			}
 
+				Menu mP;
+				vector<string> mPlayer = { "     Мини-игры", "   Покормить крысу", "      Магазин", "     Сохранение", "       Выход" };
+
+				int num = mP.select_vertical(mPlayer, 39, 18) + 1;
+				switch (num)
+				{
+				case 1:
+					miniGames(acc);
+					account[acc].time += time.elapsed();
+					break;
+				case 2:
+					feedRat(account, acc);
+					account[acc].time += time.elapsed();
+					break;
+				case 3:
+					shop(account, acc);
+					account[acc].time += time.elapsed();
+					break;
+				case 4:
+					save();
+					playPositiveSound();
+					account[acc].time += time.elapsed();
+					break;
+				case 5:
+					account[acc].time += time.elapsed();
+					return;
+				default:
+					break;
+				}
+			}
+			else  //Если крыса мертва
+			{
+				play8bitTreak();
+				int num = 0;
+				while (num != 4)
+				{
+					string deadText = R"Rat(
+%4ВЫ МЕРТВЫ
+
+%4„Жизнь — это очередь за смертью, но некоторые лезут без очереди“
+
+%6Причины завести декоративную крысу:
+
+%6 Поддаются дрессуре, поэтому их можно многому научить
+%6 Простота ухода и нетребовательный характер грызуна
+%6 Питомец и его жилище не займёт в доме много места
+%6 Выгуливать на улице не нужно!!!
+%6 Животные инициативные, активные, наблюдать за их повадками очень интересно
+
+%4Человек крысе друг! Посетите крысинный форум
+%4Там вы найдете всю интересующую вас информацию о крысах
+)Rat";
+					printRawF(deadText, 50, 3, true);
+
+					Sleep(8500);
+
+					Menu m;
+					vector<string> mainMenu = { "       Рекорды", "   Форум о крысах","  Симулятор на GitHub","        Выход" };
+					num = m.select_vertical(mainMenu, 39, 22) + 1;
+					switch (num)
+					{
+					case 1:
+						statistics(account, sizeAcc);
+						break;
+					case 2:
+						system("start http://ratplace.com.ua/forum/");
+						break;
+					case 3:
+						system("start https://github.com/dankozz1t/RatSimulator.git");
+						break;
+					case 4:
+						return;
+					}
+				}
+			}
+			
 		} while (true);
 
 		gotoxy(30, 28);
@@ -405,7 +447,7 @@ struct RatSimulator
 			{
 			case 1:
 				newPlay();
-				menuPlayer(sizeAcc-1);
+				menuPlayer(sizeAcc - 1);
 				break;
 			case 2:
 				if (sizeAcc)
